@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	//Add labels to sliders
 	addLabel("#save","savelab");
 	addLabel("#toRetire","retirelab");
+	addLabel("#charges","chargeslab");
+	addLabel("#returns","returnslab");
 
 
 
@@ -33,6 +35,22 @@ document.addEventListener('DOMContentLoaded', () => {
 		moveLabel("#retirelab",interval,newX);
 	})
 
+	var chargesevent=d3.select("#slcharges");
+	chargesevent.on("change", function(d){
+		var interval=this.value;
+		console.log(interval);
+		var newX=calcLabelPos(interval,"#slcharges")
+		moveLabel("#chargeslab",interval,newX);
+	})
+
+	var returnsevent=d3.select("#slreturns");
+	returnsevent.on("change", function(d){
+		var interval=this.value;
+		console.log(interval);
+		var newX=calcLabelPos(interval,"#slreturns")
+		moveLabel("#returnslab",interval,newX);
+	})
+
 
 
 	function addLabel(divID,labelID) {
@@ -45,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		var label=d3.select(String(divId))
 		.html(labelVal)
 		.style("left", pos+"px")
-		.style("top", "58px");
+		.style("top", "54px");
 	}
 
 	function calcLabelPos (pos, label){
