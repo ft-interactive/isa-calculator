@@ -16,19 +16,28 @@ document.addEventListener('DOMContentLoaded', () => {
 	var returns=0
 
 	var slideValues=[
-	{"divID":"#save","labName":"savelab","pos":1,"sliderID":"#slsave","min":1,"max":15},
-	{"divID":"#toRetire","labName":"retirelab","pos":1,"sliderID":"#slretire","min":1,"max":15},
-	{"divID":"#charges","labName":"chargeslab","pos":0,"sliderID":"#slcharges","min":1,"max":15},
-	{"divID":"#returns","labName":"returnslab","pos":0,"sliderID":"#slreturns","min":1,"max":15}]
+	{"divID":"save","labName":"savelab","pos":savePerYear,"sliderID":"slsave","min":1,"max":15},
+	{"divID":"toRetire","labName":"retirelab","pos":timeToRetire,"sliderID":"slretire","min":1,"max":50},
+	{"divID":"charges","labName":"chargeslab","pos":charges,"sliderID":"slcharges","min":1,"max":3},
+	{"divID":"returns","labName":"returnslab","pos":returns,"sliderID":"slreturns","min":1,"max":20}]
 
-	//Add labels to the sliders then make them visible
-	for (var i = 0; i < slideValues.length; i++) {
+	//Add sliders
+	var htmlString=""
+	for (var i = 0; i < 4; i++) {
+		var div=slideValues[i].divID;
+		var slideID=slideValues[i].sliderID;
+		var labelValue=Number(slideValues[i].pos);
 		var slideHolder=d3.select("#controls")
+		htmlString=htmlString+"<div id='"+div+"' class='slideholder'>Some texct<input class='slider' id='"+slideID+"'type='range'value='"+labelValue+"'max='"+slideValues[i].max+"'min='"+slideValues[i].min+"'></div>";
+		slideHolder.html(htmlString);
+	}
+	//Add labels to slider then move to correct postion. If I put this all in one lop above it doesn't work
+	for (var i = 0; i < 4; i++) {
 		var div=slideValues[i].divID;
 		var labName=slideValues[i].labName;
+		addLabel(div,labName);
 		var labelValue=Number(slideValues[i].pos);
 		var slideID=slideValues[i].sliderID;
-		addLabel(div,labName);
 		var newX=calcLabelPos(labelValue,slideID);
 		moveLabel(labName,labelValue,newX);
 	}
@@ -37,55 +46,55 @@ document.addEventListener('DOMContentLoaded', () => {
 	var saveevent=d3.select("#slsave");
 	saveevent.on("change", function(d){
 		var interval=this.value;
-		console.log(interval);
-		var newX=calcLabelPos(interval,"#slsave")
+		var newX=calcLabelPos(interval,"slsave")
 		moveLabel("savelab",interval,newX);
 	})
 
 	var retireevent=d3.select("#slretire");
 	retireevent.on("change", function(d){
 		var interval=this.value;
-		console.log(interval);
-		var newX=calcLabelPos(interval,"#slretire")
+		var newX=calcLabelPos(interval,"slretire")
 		moveLabel("retirelab",interval,newX);
 	})
 
 	var chargesevent=d3.select("#slcharges");
 	chargesevent.on("change", function(d){
 		var interval=this.value;
-		console.log(interval);
-		var newX=calcLabelPos(interval,"#slcharges")
+		var newX=calcLabelPos(interval,"slcharges")
 		moveLabel("chargeslab",interval,newX);
 	})
 
 	var returnsevent=d3.select("#slreturns");
 	returnsevent.on("change", function(d){
 		var interval=this.value;
-		var newX=calcLabelPos(interval,"#slreturns")
+		var newX=calcLabelPos(interval,"slreturns")
 		moveLabel("returnslab",interval,newX);
 	})
 
 
 
 	function addLabel(divID,labelID) {
-		var label=d3.select(String(divID)).append("div")
+		//console.log("func: addLabel");
+		var label=d3.select("#"+String(divID)).append("div")
+		label
 		.attr("id", labelID)
 		.attr("class", "slideLabel");
 	}
 
-	function moveLabel(divId,labelText,pos){
-		var label=d3.select("#"+String(divId))
-		.html(labelText)
-		.style("left", pos+"px")
-		.style("top", "54px");
-	}
-
 	function calcLabelPos (pos, SliderID){
-		var slider=d3.select(String(SliderID));
+		//console.log("func: calcLabelPos");
+		var slider=d3.select("#"+String(SliderID));
 		var percentage=(100/(slider.node().max-slider.node().min)*(pos));
 		var posX=slider.node().getBoundingClientRect().width;
 		posX=(posX/100)*percentage;
 		return posX
 	}
 
+	function moveLabel(divId,labelText,pos){
+		//console.log("func: moveLabel")
+		var label=d3.select("#"+String(divId))
+		.html(labelText)
+		.style("left", pos+"px")
+		.style("top", "54px");
+	}
 });
