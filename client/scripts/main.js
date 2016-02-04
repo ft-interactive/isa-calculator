@@ -10,20 +10,21 @@ document.addEventListener('DOMContentLoaded', () => {
 	// remove the 300ms tap delay on mobile browsers
 	attachFastClick(document.body);
 
-	var savePerYear=1;
-	var timeToRetire=1;
+	var savePerYear=0;
+	var timeToRetire=0;
 	var charges=0;
 	var returns=0;
 	var newcharges=0
 	var inRetirement=0
+	var firstrun=true
 
 	var slideValues=[
-	{"divID":"save","className":"slideholder","HTML":"Save each year","labName":"savelab","pos":savePerYear,"sliderID":"slsave","min":1,"max":15},
-	{"divID":"toRetire","className":"slideholder","HTML":"Time to retirement (years)","labName":"retirelab","pos":timeToRetire,"sliderID":"slretire","min":1,"max":50},
-	{"divID":"charges","className":"slideholder","HTML":"Charges (per cent)","labName":"chargeslab","pos":charges,"sliderID":"slcharges","min":1,"max":3},
-	{"divID":"returns","className":"slideholder","HTML":"returns (per cent)","labName":"returnslab","pos":returns,"sliderID":"slreturns","min":1,"max":20},
-	{"divID":"newCharges","className":"dim","HTML":"Charges (per cent)","labName":"newchargeslab","pos":newcharges,"sliderID":"slnewcharge","min":1,"max":1},
-	{"divID":"inRetirement","className":"dim","HTML":"Years in retirement","labName":"inRetirelab","pos":inRetirement,"sliderID":"slnewcharge","min":1,"max":1}]
+	{"divID":"save","className":"slideholder","HTML":"Save each year","labName":"savelab","pos":savePerYear,"sliderID":"slsave","min":0,"max":15},
+	{"divID":"toRetire","className":"slideholder","HTML":"Time to retirement (years)","labName":"retirelab","pos":timeToRetire,"sliderID":"slretire","min":0,"max":50},
+	{"divID":"charges","className":"slideholder","HTML":"Charges (per cent)","labName":"chargeslab","pos":charges,"sliderID":"slcharges","min":0,"max":3},
+	{"divID":"returns","className":"slideholder","HTML":"returns (per cent)","labName":"returnslab","pos":returns,"sliderID":"slreturns","min":0,"max":20},
+	{"divID":"newCharges","className":"dim","HTML":"Charges (per cent)","labName":"newchargeslab","pos":newcharges,"sliderID":"slnewcharge","min":0,"max":1},
+	{"divID":"inRetirement","className":"dim","HTML":"Years in retirement","labName":"inRetirelab","pos":inRetirement,"sliderID":"slnewcharge","min":0,"max":1}]
 
 	//Add sliders
 	var htmlString=""
@@ -37,7 +38,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		slideHolder.html(htmlString);
 	}
 
-	//Add labels to slider then move to correct postion. If I put this all in one lop above it doesn't work
+	//Add labels to slider then move to correct postion.
+	//If I call addLabel() and moveLabel() in loop above it doesn't work?
 	for (var i = 0; i < 4; i++) {
 		var div=slideValues[i].divID;
 		var labName=slideValues[i].labName;
@@ -48,14 +50,25 @@ document.addEventListener('DOMContentLoaded', () => {
 		moveLabel(labName,labelValue,newX);
 	}
 
-
-
 	//Add event listeners to sliders
 	var saveevent=d3.select("#slsave");
 	saveevent.on("change", function(d){
 		var interval=this.value;
 		var newX=calcLabelPos(interval,"slsave")
 		moveLabel("savelab",interval,newX);
+		var div=d3.select("#newCharges");
+		div.attr("class","slideholder");
+		if (firstrun) {
+			addLabel("newCharges","newchargeslab");
+			}
+		div=d3.select("#slnewcharge");
+		div.node().max=interval
+		div.on("change",function(d){
+			var interval=this.value;
+			var newX=calcLabelPos(interval,"slnewcharge")
+			moveLabel("newchargeslab",interval,newX);
+		})
+
 	})
 
 	var retireevent=d3.select("#slretire");
@@ -80,7 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	})
 
 
-
 	function addLabel(divID,labelID) {
 		//console.log("func: addLabel");
 		var label=d3.select("#"+String(divID)).append("div")
@@ -92,9 +104,15 @@ document.addEventListener('DOMContentLoaded', () => {
 	function calcLabelPos (pos, SliderID){
 		//console.log("func: calcLabelPos");
 		var slider=d3.select("#"+String(SliderID));
+		var increments=slider.node().max-slider.node().min;
+		console.log("increments",increments)
 		var percentage=(100/(slider.node().max-slider.node().min)*(pos));
+		console.log("percentage ",percentage)
 		var posX=slider.node().getBoundingClientRect().width;
-		posX=(posX/100)*percentage;
+		var offset=((32/increments)*pos)-5
+		console.log(offset)
+		posX=((posX/100)*percentage)-offset;
+		console.log(posX)
 		return posX
 	}
 
@@ -105,4 +123,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		.style("left", pos+"px")
 		.style("top", "54px");
 	}
+
+
 });
