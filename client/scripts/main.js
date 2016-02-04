@@ -10,28 +10,33 @@ document.addEventListener('DOMContentLoaded', () => {
 	// remove the 300ms tap delay on mobile browsers
 	attachFastClick(document.body);
 
-	var savePerYear=1
-	var timeToRetire=1
-	var charges=0
-	var returns=0
+	var savePerYear=1;
+	var timeToRetire=1;
+	var charges=0;
+	var returns=0;
+	var newcharges=0
+	var inRetirement=0
 
 	var slideValues=[
-	{"divID":"save","HTML":"Save each year","labName":"savelab","pos":savePerYear,"sliderID":"slsave","min":1,"max":15},
-	{"divID":"toRetire","HTML":"Time to retirement (years)","labName":"retirelab","pos":timeToRetire,"sliderID":"slretire","min":1,"max":50},
-	{"divID":"charges","HTML":"Charges (per cent)","labName":"chargeslab","pos":charges,"sliderID":"slcharges","min":1,"max":3},
-	{"divID":"returns","HTML":"returns (per cent)","labName":"returnslab","pos":returns,"sliderID":"slreturns","min":1,"max":20}]
+	{"divID":"save","className":"slideholder","HTML":"Save each year","labName":"savelab","pos":savePerYear,"sliderID":"slsave","min":1,"max":15},
+	{"divID":"toRetire","className":"slideholder","HTML":"Time to retirement (years)","labName":"retirelab","pos":timeToRetire,"sliderID":"slretire","min":1,"max":50},
+	{"divID":"charges","className":"slideholder","HTML":"Charges (per cent)","labName":"chargeslab","pos":charges,"sliderID":"slcharges","min":1,"max":3},
+	{"divID":"returns","className":"slideholder","HTML":"returns (per cent)","labName":"returnslab","pos":returns,"sliderID":"slreturns","min":1,"max":20},
+	{"divID":"newCharges","className":"dim","HTML":"Charges (per cent)","labName":"newchargeslab","pos":newcharges,"sliderID":"slnewcharge","min":1,"max":1},
+	{"divID":"inRetirement","className":"dim","HTML":"Years in retirement","labName":"inRetirelab","pos":inRetirement,"sliderID":"slnewcharge","min":1,"max":1}]
 
 	//Add sliders
 	var htmlString=""
-	for (var i = 0; i < 4; i++) {
+	for (var i = 0; i < 6; i++) {
 		var div=slideValues[i].divID;
 		var divHTML=slideValues[i].HTML;
 		var slideID=slideValues[i].sliderID;
 		var labelValue=Number(slideValues[i].pos);
 		var slideHolder=d3.select("#controls")
-		htmlString=htmlString+"<div id='"+div+"' class='slideholder'>"+divHTML+"<input class='slider' id='"+slideID+"'type='range'value='"+labelValue+"'max='"+slideValues[i].max+"'min='"+slideValues[i].min+"'></div>";
+		htmlString=htmlString+"<div id='"+div+"' class='"+slideValues[i].className+"'>"+divHTML+"<input class='slider' id='"+slideID+"'type='range'value='"+labelValue+"'max='"+slideValues[i].max+"'min='"+slideValues[i].min+"'></div>";
 		slideHolder.html(htmlString);
 	}
+
 	//Add labels to slider then move to correct postion. If I put this all in one lop above it doesn't work
 	for (var i = 0; i < 4; i++) {
 		var div=slideValues[i].divID;
@@ -42,6 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		var newX=calcLabelPos(labelValue,slideID);
 		moveLabel(labName,labelValue,newX);
 	}
+
+
 
 	//Add event listeners to sliders
 	var saveevent=d3.select("#slsave");

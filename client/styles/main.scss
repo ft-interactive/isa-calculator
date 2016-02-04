@@ -57,7 +57,7 @@ h1 {
 
 .fanChart{
   margin-top: 30px;
-  height:350px;
+  height:480;
   display: block;
   background-color: #ecafaf;
 }
@@ -65,13 +65,20 @@ h1 {
 .inputs{
   margin-top: 30px;
   float: left;
-  height: 350px;
+  height: 480px;
   display: block;
 }
 
 .slideholder {
   position: relative;
   margin: 20px 0 0 0;
+  opacity: 1.0;
+}
+
+.dim {
+  position: relative;
+  margin: 20px 0 0 0;
+  opacity: 0.3;
 }
 
 .slideLabel {
