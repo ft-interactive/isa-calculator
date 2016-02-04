@@ -76,6 +76,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		var newX=calcLabelPos(newcharges,'slnewcharge')
 		moveLabel("newchargeslab",newcharges,newX);
 
+		
+
 
 	})
 
