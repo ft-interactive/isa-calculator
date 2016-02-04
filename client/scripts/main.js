@@ -2,29 +2,29 @@ import oHoverable from 'o-hoverable';
 import attachFastClick from 'fastclick';
 import d3 from 'd3';
 
-
 document.addEventListener('DOMContentLoaded', () => {
 	// make hover effects work on touch devices
-	oHoverable.init();
+		oHoverable.init();
 
 	// remove the 300ms tap delay on mobile browsers
-	attachFastClick(document.body);
+		attachFastClick(document.body);
 
+	//Variables that hold the slider values for math calculations	
 	var savePerYear=0;
 	var timeToRetire=0;
 	var charges=0;
 	var returns=0;
-	var newcharges=0
-	var inRetirement=0
-	var firstrun=true
+	var newcharges=0;
+	var inRetirement=0;
+	var firstrun=true;
 
 	var slideValues=[
-	{"divID":"save","className":"slideholder","HTML":"Save each year","labName":"savelab","pos":savePerYear,"sliderID":"slsave","min":0,"max":15},
-	{"divID":"toRetire","className":"slideholder","HTML":"Time to retirement (years)","labName":"retirelab","pos":timeToRetire,"sliderID":"slretire","min":0,"max":50},
-	{"divID":"charges","className":"slideholder","HTML":"Charges (per cent)","labName":"chargeslab","pos":charges,"sliderID":"slcharges","min":0,"max":3},
-	{"divID":"returns","className":"slideholder","HTML":"returns (per cent)","labName":"returnslab","pos":returns,"sliderID":"slreturns","min":0,"max":20},
-	{"divID":"newCharges","className":"dim","HTML":"Charges (per cent)","labName":"newchargeslab","pos":newcharges,"sliderID":"slnewcharge","min":0,"max":1},
-	{"divID":"inRetirement","className":"dim","HTML":"Years in retirement","labName":"inRetirelab","pos":inRetirement,"sliderID":"slnewcharge","min":0,"max":1}]
+	{"divID":"save","className":"slideholder","HTML":"Save each year (£k)","labName":"savelab","pos":savePerYear,"sliderID":"slsave","min":0,"max":15,"step":0.1},
+	{"divID":"toRetire","className":"slideholder","HTML":"Time to retirement (years)","labName":"retirelab","pos":timeToRetire,"sliderID":"slretire","min":0,"max":50,"step":1},
+	{"divID":"charges","className":"slideholder","HTML":"Charges (per cent)","labName":"chargeslab","pos":charges,"sliderID":"slcharges","min":0,"max":3,"step":0.1},
+	{"divID":"returns","className":"slideholder","HTML":"Returns (per cent)","labName":"returnslab","pos":returns,"sliderID":"slreturns","min":0,"max":20,"step":0.1},
+	{"divID":"newCharges","className":"dim","HTML":"Charges (per cent)","labName":"newchargeslab","pos":newcharges,"sliderID":"slnewcharge","min":0,"max":1,"step":0.1},
+	{"divID":"inRetirement","className":"dim","HTML":"Years in retirement","labName":"inRetirelab","pos":inRetirement,"sliderID":"slnewcharge","min":0,"max":1,"step":1}]
 
 	//Add sliders
 	var htmlString=""
@@ -33,8 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		var divHTML=slideValues[i].HTML;
 		var slideID=slideValues[i].sliderID;
 		var labelValue=Number(slideValues[i].pos);
-		var slideHolder=d3.select("#controls")
-		htmlString=htmlString+"<div id='"+div+"' class='"+slideValues[i].className+"'>"+divHTML+"<input class='slider' id='"+slideID+"'type='range'value='"+labelValue+"'max='"+slideValues[i].max+"'min='"+slideValues[i].min+"'></div>";
+		var slideHolder=d3.select("#controls");
+		htmlString=htmlString+"<div id='"+div+"' class='"+slideValues[i].className+"'>"+divHTML+"<input class='slider' id='"+slideID+"'type='range'value='"+labelValue+"'max='"+slideValues[i].max+"'min='"+slideValues[i].min+"'step='"+slideValues[i].step+"'></div>";
 		slideHolder.html(htmlString);
 	}
 
@@ -50,79 +50,83 @@ document.addEventListener('DOMContentLoaded', () => {
 		moveLabel(labName,labelValue,newX);
 	}
 
-	//Add event listeners to sliders
+	//Add event listeners to slsave slider
 	var saveevent=d3.select("#slsave");
 	saveevent.on("change", function(d){
-		var interval=this.value;
-		var newX=calcLabelPos(interval,"slsave")
-		moveLabel("savelab",interval,newX);
+		savePerYear=this.value;
+		var newX=calcLabelPos(savePerYear,"slsave")
+		moveLabel("savelab",savePerYear,newX);
+		//Make the newChanges slider opaque
 		var div=d3.select("#newCharges");
 		div.attr("class","slideholder");
+		//Add label to the newChanges slider
 		if (firstrun) {
 			addLabel("newCharges","newchargeslab");
 			}
+		//Add an onchange event to the newChanges slider
 		div=d3.select("#slnewcharge");
-		div.node().max=interval
+		div.node().max=savePerYear;
 		div.on("change",function(d){
-			var interval=this.value;
-			var newX=calcLabelPos(interval,"slnewcharge")
-			moveLabel("newchargeslab",interval,newX);
+			var newcharges=this.value;
+			var newX=calcLabelPos(newcharges,'slnewcharge')
+			moveLabel("newchargeslab",newcharges,newX);
 		})
+		//Refresh the label on the newChanges slider when slsave slider changes
+		newcharges=div.node().value;
+		var newX=calcLabelPos(newcharges,'slnewcharge')
+		moveLabel("newchargeslab",newcharges,newX);
+
 
 	})
 
+	//Add event listeners to slretire slider
 	var retireevent=d3.select("#slretire");
 	retireevent.on("change", function(d){
-		var interval=this.value;
-		var newX=calcLabelPos(interval,"slretire")
-		moveLabel("retirelab",interval,newX);
-	})
+		timeToRetire=this.value;
+		var newX=calcLabelPos(timeToRetire,"slretire")
+		moveLabel("retirelab",timeToRetire,newX);
+	});
 
+	//Add event listeners to slcharges slider
 	var chargesevent=d3.select("#slcharges");
 	chargesevent.on("change", function(d){
-		var interval=this.value;
-		var newX=calcLabelPos(interval,"slcharges")
-		moveLabel("chargeslab",interval,newX);
-	})
+		charges=this.value;
+		var newX=calcLabelPos(charges,"slcharges")
+		moveLabel("chargeslab",charges,newX);
+	});
 
+	//Add event listeners to slreturns slider
 	var returnsevent=d3.select("#slreturns");
 	returnsevent.on("change", function(d){
-		var interval=this.value;
-		var newX=calcLabelPos(interval,"slreturns")
-		moveLabel("returnslab",interval,newX);
-	})
+		returns=this.value;
+		var newX=calcLabelPos(returns,"slreturns")
+		moveLabel("returnslab",returns,newX);
+	});
 
-
+	//Adds a div into the div that holds the slider to use as a label
 	function addLabel(divID,labelID) {
-		//console.log("func: addLabel");
-		var label=d3.select("#"+String(divID)).append("div")
+		var label=d3.select('#'+String(divID)).append("div");
 		label
-		.attr("id", labelID)
-		.attr("class", "slideLabel");
+		.attr('id', labelID)
+		.attr('class', 'slideLabel');
 	}
 
-	function calcLabelPos (pos, SliderID){
-		//console.log("func: calcLabelPos");
-		var slider=d3.select("#"+String(SliderID));
+	//Calculates the postion x position of the label so its under the slider thumb
+	function calcLabelPos (pos, SliderID) {
+		var slider=d3.select('#'+String(SliderID));
 		var increments=slider.node().max-slider.node().min;
-		console.log("increments",increments)
 		var percentage=(100/(slider.node().max-slider.node().min)*(pos));
-		console.log("percentage ",percentage)
 		var posX=slider.node().getBoundingClientRect().width;
-		var offset=((32/increments)*pos)-5
-		console.log(offset)
+		var offset=((32/increments)*pos)-5;
 		posX=((posX/100)*percentage)-offset;
-		console.log(posX)
-		return posX
+		return posX;
 	}
 
-	function moveLabel(divId,labelText,pos){
-		//console.log("func: moveLabel")
-		var label=d3.select("#"+String(divId))
+	//Moves the label under the new thumb position
+	function moveLabel (divId, labelText, pos) {
+		var label=d3.select('#'+String(divId))
 		.html(labelText)
-		.style("left", pos+"px")
-		.style("top", "54px");
+		.style('left', pos+'px')
+		.style('top', '54px');
 	}
-
-
 });
