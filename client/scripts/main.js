@@ -70,8 +70,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		})
 		//Refresh the ranges of the newChanges slider
 		var rangediv=d3.select("#newCharges");
-		rangediv.selectAll('.ranges')
-		.html(slideValues[5].min+" "+savePerYear)
+		rangediv.selectAll('.rangeright')
+		.html(savePerYear)
 		//Refresh the label on the newChanges slider when slsave slider changes
 		newcharges=div.node().value;
 		var newX=calcLabelPos(newcharges,'slnewcharge')
@@ -130,13 +130,14 @@ document.addEventListener('DOMContentLoaded', () => {
 		var label=d3.select('#'+String(divId))
 		.html(labelText)
 		.style('left', pos+'px')
-		.style('top', '78px');
+		.style('top', '83px');
 	}
 
 	function slidertemplate (annotations) {
 		return `
 			<div id=${annotations.divID} class=${annotations.className}>${annotations.HTML}
-				<div class='ranges'>${annotations.min} ${annotations.max}</div>
+				<div class='rangeleft'>${annotations.min}</div>
+				<div class='rangeright'>${annotations.max}</div>
 				<input class='slider' id=${annotations.sliderID} type='range' value=${annotations.pos} max=${annotations.max} min=${annotations.min} step=${annotations.step}>
 			</div>
 			`;

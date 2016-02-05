@@ -70,6 +70,7 @@ h1 {
 }
 
 .slideholder {
+  width: 95%;
   font-family: MetricWeb;
   font-size: 22px;
   font-weight: 600;
@@ -79,14 +80,29 @@ h1 {
 }
 
 .dim {
+  width: 95%;
+  font-family: MetricWeb;
+  font-size: 22px;
+  font-weight: 600;
   position: relative;
   margin: 20px 0 0 0;
   opacity: 0.3;
 }
 
-.ranges {
-  text-align-last: justify;
-  width: 95%;
+.rangeleft {
+  float: left;
+  text-align: left;
+  display: inline-block;
+  width: 50%;
+  font-family: MetricWeb;
+  font-size: 20px;
+  font-weight: 400;
+}
+.rangeright {
+  float: right;
+  text-align: right;
+  display: inline-block;
+  width: 50%;
   font-family: MetricWeb;
   font-size: 20px;
   font-weight: 400;
@@ -128,7 +144,7 @@ h1 {
 ///////sliders stytled through webkit 
 input[type=range].slider {
   -webkit-appearance: none;
-  width: 95%;
+  width: 100%;
   margin: 14px auto 20px auto;
 }
 input[type=range].slider:focus {
