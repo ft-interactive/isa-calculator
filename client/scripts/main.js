@@ -60,6 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		//Add label to the newChanges slider
 		if (firstrun) {
 			addLabel("newCharges","newchargeslab");
+			firstrun=false;
 			}
 		//Add an onchange event to the newChanges slider
 		div=d3.select("#slnewcharge");
@@ -122,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		var increments=slider.node().max-slider.node().min;
 		var percentage=(100/(slider.node().max-slider.node().min)*(pos));
 		var posX=slider.node().getBoundingClientRect().width;
-		var offset=((32/increments)*pos)-5;
+		var offset=((32/increments)*pos)+3;
 		posX=((posX/100)*percentage)-offset;
 		return posX;
 	}
