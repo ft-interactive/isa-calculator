@@ -70,6 +70,7 @@ h1 {
 }
 
 .slideholder {
+  float:left;
   width: 95%;
   font-family: MetricWeb;
   font-size: 22px;
@@ -80,7 +81,9 @@ h1 {
 }
 
 .dim {
+  float:left;
   width: 95%;
+  text-align: left;
   font-family: MetricWeb;
   font-size: 22px;
   font-weight: 600;
@@ -90,9 +93,8 @@ h1 {
 }
 
 .rangeleft {
-  float: left;
+  float:left;
   text-align: left;
-  display: inline-block;
   width: 50%;
   font-family: MetricWeb;
   font-size: 20px;
@@ -101,7 +103,6 @@ h1 {
 .rangeright {
   float: right;
   text-align: right;
-  display: inline-block;
   width: 50%;
   font-family: MetricWeb;
   font-size: 20px;

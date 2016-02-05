@@ -130,12 +130,13 @@ document.addEventListener('DOMContentLoaded', () => {
 		var label=d3.select('#'+String(divId))
 		.html(labelText)
 		.style('left', pos+'px')
-		.style('top', '83px');
+		.style('top', '84px');
 	}
 
 	function slidertemplate (annotations) {
 		return `
-			<div id=${annotations.divID} class=${annotations.className}>${annotations.HTML}
+			<div id=${annotations.divID} class=${annotations.className}>
+				<div>${annotations.HTML}</div>
 				<div class='rangeleft'>${annotations.min}</div>
 				<div class='rangeright'>${annotations.max}</div>
 				<input class='slider' id=${annotations.sliderID} type='range' value=${annotations.pos} max=${annotations.max} min=${annotations.min} step=${annotations.step}>
