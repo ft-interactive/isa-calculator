@@ -7,9 +7,9 @@ export function drawChart () {
 		    { x: 2, y: 35, },
 		    { x: 3, y: 20, },
 		];
-		var padding = [ 20, 10, 50, 100 ];
-		var width = document.getElementById('chartHolder').getBoundingClientRect().width-(padding[1])-(padding[3]);
-	    var height = document.getElementById('chartHolder').getBoundingClientRect().height-(padding[0])-(padding[2])
+		var padding = [ 20, 0, 0, 0 ];
+		var width = document.getElementById('areaChart').getBoundingClientRect().width-(padding[1])-(padding[3]);
+	    var height = document.getElementById('areaChart').getBoundingClientRect().height-(padding[0])-(padding[2])
 	    
 	    //Set up scales
 		var xScale = d3.time.scale()
@@ -41,7 +41,7 @@ export function drawChart () {
 			});
 
 		//Create the empty SVG image
-		var svg = d3.select("#chartHolder")
+		var svg = d3.select("#areaChart")
 			.append("svg")
 			.attr("width", width)
 			.attr("height", height);
