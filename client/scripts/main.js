@@ -27,14 +27,11 @@ document.addEventListener('DOMContentLoaded', () => {
 	{"divID":"inRetirement","className":"dim","HTML":"Years in retirement","labName":"inRetirelab","pos":inRetirement,"sliderID":"slnewcharge","min":0,"max":1,"step":1}]
 
 	//Add sliders
-	var htmlString=""
+	var htmlString="";
+	var testString=""
 	for (var i = 0; i < 6; i++) {
-		var div=slideValues[i].divID;
-		var divHTML=slideValues[i].HTML;
-		var slideID=slideValues[i].sliderID;
-		var labelValue=Number(slideValues[i].pos);
 		var slideHolder=d3.select("#controls");
-		htmlString=htmlString+"<div id='"+div+"' class='"+slideValues[i].className+"'>"+divHTML+"<div class='ranges'>0 15</div><input class='slider' id='"+slideID+"'type='range'value='"+labelValue+"'max='"+slideValues[i].max+"'min='"+slideValues[i].min+"'step='"+slideValues[i].step+"'></div>";
+		htmlString=htmlString+slidertemplate (slideValues[i]);
 		slideHolder.html(htmlString);
 	}
 
@@ -71,6 +68,10 @@ document.addEventListener('DOMContentLoaded', () => {
 			var newX=calcLabelPos(newcharges,'slnewcharge')
 			moveLabel("newchargeslab",newcharges,newX);
 		})
+		//Refresh the ranges of the newChanges slider
+		var rangediv=d3.select("#newCharges");
+		rangediv.selectAll('.ranges')
+		.html(slideValues[5].min+" "+savePerYear)
 		//Refresh the label on the newChanges slider when slsave slider changes
 		newcharges=div.node().value;
 		var newX=calcLabelPos(newcharges,'slnewcharge')
@@ -129,6 +130,15 @@ document.addEventListener('DOMContentLoaded', () => {
 		var label=d3.select('#'+String(divId))
 		.html(labelText)
 		.style('left', pos+'px')
-		.style('top', '54px');
+		.style('top', '78px');
+	}
+
+	function slidertemplate (annotations) {
+		return `
+			<div id=${annotations.divID} class=${annotations.className}>${annotations.HTML}
+				<div class='ranges'>${annotations.min} ${annotations.max}</div>
+				<input class='slider' id=${annotations.sliderID} type='range' value=${annotations.pos} max=${annotations.max} min=${annotations.min} step=${annotations.step}>
+			</div>
+			`;
 	}
 });
