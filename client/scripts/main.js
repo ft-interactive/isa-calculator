@@ -1,6 +1,7 @@
 import oHoverable from 'o-hoverable';
 import attachFastClick from 'fastclick';
 import d3 from 'd3';
+import {drawChart} from './areaChart';
 
 document.addEventListener('DOMContentLoaded', () => {
 	// make hover effects work on touch devices
@@ -105,6 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		var newX=calcLabelPos(returns,"slreturns")
 		moveLabel("returnslab",returns,newX);
 	});
+	drawChart ();
 
 	//Adds a div into the div that holds the slider to use as a label
 	function addLabel(divID,labelID) {
