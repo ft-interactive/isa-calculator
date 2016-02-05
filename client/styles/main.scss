@@ -49,24 +49,35 @@ h1 {
 .pressentation {
   display: block;
   margin: 0 auto;
-  width: 75%;
+  width: 65%;
   font-family: MetricWeb;
   font-size: 20px;
   color: #43423e;
 }
 
-.fanChart{
+.inputs{
   margin-top: 30px;
-  height:620;
+  float: left;
+  height: 100%;
+  display: block;
+}
+
+.outputs{
+  margin-top: 30px;
+  height:400px;
   display: block;
   background-color: #ccc2c2;
 }
 
-.inputs{
-  margin-top: 30px;
-  float: left;
-  height: 620px;
-  display: block;
+.slideholderTop {
+  float:left;
+  width: 95%;
+  font-family: MetricWeb;
+  font-size: 22px;
+  font-weight: 600;
+  position: relative;
+  margin: 0 0 0 0;
+  opacity: 1.0;
 }
 
 .slideholder {
@@ -131,12 +142,12 @@ h1 {
 
     .intro {
       font: 21px/1.3 FinancierText;
-      width: 75%;
+      width: 80%;
     }
     .pressentation {
       display: block;
       margin: 0 auto;
-      width: 75%;
+      width: 70%;
     }
 
 }

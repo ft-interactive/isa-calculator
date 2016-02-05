@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	var firstrun=true;
 
 	var slideValues=[
-	{"divID":"save","className":"slideholder","HTML":"Save each year (£k)","labName":"savelab","pos":savePerYear,"sliderID":"slsave","min":0,"max":15,"step":0.1},
+	{"divID":"save","className":"slideholderTop","HTML":"Save each year (£k)","labName":"savelab","pos":savePerYear,"sliderID":"slsave","min":0,"max":15,"step":0.1},
 	{"divID":"toRetire","className":"slideholder","HTML":"Time to retirement (years)","labName":"retirelab","pos":timeToRetire,"sliderID":"slretire","min":0,"max":50,"step":1},
 	{"divID":"charges","className":"slideholder","HTML":"Charges (per cent)","labName":"chargeslab","pos":charges,"sliderID":"slcharges","min":0,"max":3,"step":0.1},
 	{"divID":"returns","className":"slideholder","HTML":"Returns (per cent)","labName":"returnslab","pos":returns,"sliderID":"slreturns","min":0,"max":20,"step":0.1},
