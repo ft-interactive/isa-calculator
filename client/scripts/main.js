@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		var slideID=slideValues[i].sliderID;
 		var labelValue=Number(slideValues[i].pos);
 		var slideHolder=d3.select("#controls");
-		htmlString=htmlString+"<div id='"+div+"' class='"+slideValues[i].className+"'>"+divHTML+"<input class='slider' id='"+slideID+"'type='range'value='"+labelValue+"'max='"+slideValues[i].max+"'min='"+slideValues[i].min+"'step='"+slideValues[i].step+"'></div>";
+		htmlString=htmlString+"<div id='"+div+"' class='"+slideValues[i].className+"'>"+divHTML+"<div class='ranges'>0 15</div><input class='slider' id='"+slideID+"'type='range'value='"+labelValue+"'max='"+slideValues[i].max+"'min='"+slideValues[i].min+"'step='"+slideValues[i].step+"'></div>";
 		slideHolder.html(htmlString);
 	}
 
