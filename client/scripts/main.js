@@ -78,6 +78,9 @@ document.addEventListener('DOMContentLoaded', () => {
 		newcharges=div.node().value;
 		var newX=calcLabelPos(newcharges,'slnewcharge')
 		moveLabel("newchargeslab",newcharges,newX);
+		if (timeToRetire>0 && savePerYear>0 && returns>0) {
+			calcChart()
+		}
 
 	})
 
@@ -87,6 +90,9 @@ document.addEventListener('DOMContentLoaded', () => {
 		timeToRetire=this.value;
 		var newX=calcLabelPos(timeToRetire,"slretire")
 		moveLabel("retirelab",timeToRetire,newX);
+		if (timeToRetire>0 && savePerYear>0 && returns>0) {
+			calcChart()
+		}
 	});
 
 	//Add event listeners to slcharges slider
@@ -95,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		charges=this.value;
 		var newX=calcLabelPos(charges,"slcharges")
 		moveLabel("chargeslab",charges,newX);
-		if (timeToRetire>0 && savePerYear>0) {
+		if (timeToRetire>0 && savePerYear>0 && returns>0) {
 			calcChart()
 		}
 	});
@@ -106,6 +112,9 @@ document.addEventListener('DOMContentLoaded', () => {
 		returns=this.value;
 		var newX=calcLabelPos(returns,"slreturns")
 		moveLabel("returnslab",returns,newX);
+		if (timeToRetire>0 && savePerYear>0 && returns>0) {
+			calcChart()
+		}
 	});
 
 	//Data for chart

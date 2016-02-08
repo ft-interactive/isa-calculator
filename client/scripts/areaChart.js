@@ -2,21 +2,25 @@
 export function drawChart (xDomain, dataset) {
 		//Obviously data will change
 		//console.log (dataset)
-		var padding = [ 20, 0, 0, 0 ];
+		dataset.sort(function(a, b) {
+					return d3.descending(+a.year, +b.year);
+				});
+		var padding = [ 10, 0, 30, 45 ];
 		var width = document.getElementById('areaChart').getBoundingClientRect().width-(padding[1])-(padding[3]);
 	    var height = document.getElementById('areaChart').getBoundingClientRect().height-(padding[0])-(padding[2])
-	    
+	    d3.select("#areaChart")
+	    .html("")
 	    //Set up scales
 		var x = d3.scale.linear()
 			.domain(xDomain)
-			.range([ padding[3], width - padding[1] - padding[3] ]);
+			.range([ 0, width - padding[1] - padding[3] ]);
 
 		var y = d3.scale.linear()
-			.domain([0, d3.max(dataset, function(d) { return d.cost; })])
-			.range([ padding[0], height - padding[2] ]);
+			.domain([d3.max(dataset, function(d) { return d.cost; }),0])
+			.range([ padding[2], height - padding[2] ]);
 
 		var xAxis = d3.svg.axis()
-		    .scale([xDomain])
+		    .scale(x)
 		    .orient("bottom");
 
 		var yAxis = d3.svg.axis()
