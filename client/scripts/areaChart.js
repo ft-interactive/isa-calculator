@@ -1,50 +1,53 @@
-import d3 from 'd3';
-export function drawChart () {
+	import d3 from 'd3';
+export function drawChart (xDomain, dataset) {
 		//Obviously data will change
-		var data = [
-		    { x: 0, y: 10, },
-		    { x: 1, y: 15, },
-		    { x: 2, y: 35, },
-		    { x: 3, y: 20, },
-		];
+		//console.log (dataset)
 		var padding = [ 20, 0, 0, 0 ];
 		var width = document.getElementById('areaChart').getBoundingClientRect().width-(padding[1])-(padding[3]);
 	    var height = document.getElementById('areaChart').getBoundingClientRect().height-(padding[0])-(padding[2])
 	    
 	    //Set up scales
-		var xScale = d3.time.scale()
+		var x = d3.scale.linear()
+			.domain(xDomain)
 			.range([ padding[3], width - padding[1] - padding[3] ]);
 
-		var yScale = d3.scale.linear()
+		var y = d3.scale.linear()
+			.domain([0, d3.max(dataset, function(d) { return d.cost; })])
 			.range([ padding[0], height - padding[2] ]);
 
-		//Configure axis generators
 		var xAxis = d3.svg.axis()
-			.scale(xScale)
-			.orient("bottom")
-			.ticks(15)
-			.tickFormat(function(d) {
-				return dateFormat(d);
-			});
+		    .scale([xDomain])
+		    .orient("bottom");
+
 		var yAxis = d3.svg.axis()
-			.scale(yScale)
-			.orient("left");
+		    .scale(y)
+		    .orient("left");
 
-		//Configure area generator
 		var area = d3.svg.area()
-			.x(function(d) {
-				return xScale(dateFormat.parse(d.year));
-			})
-			.y0(height - padding[2])
-			.y1(function(d) {
-				return yScale(+d.amount);
-			});
+		    .x(function(d) { return x(d.year); })
+		    .y0(height)
+		    .y1(function(d) { return y(d.cost); });
 
-		//Create the empty SVG image
-		var svg = d3.select("#areaChart")
-			.append("svg")
-			.attr("width", width)
-			.attr("height", height);
+		var svg = d3.select("#areaChart").append("svg")
+		    .attr("width", width + padding[3] + padding[1])
+		    .attr("height", height + padding[0] + padding[2])
+		  .append("g")
+		    .attr("transform", "translate(" + padding[3] + "," + padding[0] + ")");
+
+		svg.append("path")
+			.datum(dataset)
+			.attr("class", "area")
+			.attr("d", area);
+
+		svg.append("g")
+			.attr("class", "x axis")
+			.attr("transform", "translate(0," + height + ")")
+			.call(xAxis);
+
+		svg.append("g")
+			.attr("class", "y axis")
+			.call(yAxis)
+
 
 
 

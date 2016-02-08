@@ -95,6 +95,9 @@ document.addEventListener('DOMContentLoaded', () => {
 		charges=this.value;
 		var newX=calcLabelPos(charges,"slcharges")
 		moveLabel("chargeslab",charges,newX);
+		if (timeToRetire>0 && savePerYear>0) {
+			calcChart()
+		}
 	});
 
 	//Add event listeners to slreturns slider
@@ -104,7 +107,22 @@ document.addEventListener('DOMContentLoaded', () => {
 		var newX=calcLabelPos(returns,"slreturns")
 		moveLabel("returnslab",returns,newX);
 	});
-	drawChart ();
+
+	//Data for chart
+	function calcChart () {
+		var dataset=[];
+		var xdomain=[0,Number(timeToRetire)];
+		for (var i = 0; i < Number(timeToRetire); i++) {
+			if(i>0) {
+				var cost=(((savePerYear*1000)/100)*charges)+dataset[i-1].cost;
+			}
+			else {var cost=((savePerYear*1000)/100)*charges};
+			var ele={"year":i,"cost":cost};
+			dataset.push(ele)
+		}
+		drawChart (xdomain, dataset);
+
+	}
 
 	//Adds a div into the div that holds the slider to use as a label
 	function addLabel(divID,labelID) {

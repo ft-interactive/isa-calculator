@@ -141,6 +141,23 @@ h1 {
   font-size: 20px;
   font-weight: 400;
 }
+//Charts styling
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.area {
+  fill: steelblue;
+}
+//End chart styling
+
+
+
+
+///
 
 @include oGridRespondTo(M) {
   h1 {
