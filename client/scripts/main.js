@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	//Add event listeners to slsave slider
 	var saveevent=d3.select("#slsave");
-	saveevent.on("change", function(d){
+	saveevent.on("input", function(d){
 		savePerYear=this.value;
 		var newX=calcLabelPos(savePerYear,"slsave")
 		moveLabel("savelab",savePerYear,newX);
@@ -62,10 +62,10 @@ document.addEventListener('DOMContentLoaded', () => {
 			addLabel("newCharges","newchargeslab");
 			firstrun=false;
 			}
-		//Add an onchange event to the newChanges slider
+		//Add an oninput event to the newChanges slider
 		div=d3.select("#slnewcharge");
 		div.node().max=savePerYear;
-		div.on("change",function(d){
+		div.on("input",function(d){
 			var newcharges=this.value;
 			var newX=calcLabelPos(newcharges,'slnewcharge')
 			moveLabel("newchargeslab",newcharges,newX);
@@ -79,14 +79,11 @@ document.addEventListener('DOMContentLoaded', () => {
 		var newX=calcLabelPos(newcharges,'slnewcharge')
 		moveLabel("newchargeslab",newcharges,newX);
 
-		
-
-
 	})
 
 	//Add event listeners to slretire slider
 	var retireevent=d3.select("#slretire");
-	retireevent.on("change", function(d){
+	retireevent.on("input", function(d){
 		timeToRetire=this.value;
 		var newX=calcLabelPos(timeToRetire,"slretire")
 		moveLabel("retirelab",timeToRetire,newX);
@@ -94,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	//Add event listeners to slcharges slider
 	var chargesevent=d3.select("#slcharges");
-	chargesevent.on("change", function(d){
+	chargesevent.on("input", function(d){
 		charges=this.value;
 		var newX=calcLabelPos(charges,"slcharges")
 		moveLabel("chargeslab",charges,newX);
@@ -102,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	//Add event listeners to slreturns slider
 	var returnsevent=d3.select("#slreturns");
-	returnsevent.on("change", function(d){
+	returnsevent.on("input", function(d){
 		returns=this.value;
 		var newX=calcLabelPos(returns,"slreturns")
 		moveLabel("returnslab",returns,newX);
