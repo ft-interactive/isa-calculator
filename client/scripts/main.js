@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			addLabel("newCharges","newchargeslab");
 			firstrun=false;
 			}
-		//Add an oninput event to the newChanges slider
+		//Add an oninput event to the newChanges slider, not onchange as this is only triggered when mouse is released
 		div=d3.select("#slnewcharge");
 		div.node().max=savePerYear;
 		div.on("input",function(d){
