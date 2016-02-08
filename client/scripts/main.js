@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		var label=d3.select('#'+String(divId))
 		.html(labelText)
 		.style('left', pos+'px')
-		.style('top', '25px');
+		.style('top', '26px');
 	}
 
 	function slidertemplate (annotations) {
