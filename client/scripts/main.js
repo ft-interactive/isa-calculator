@@ -79,7 +79,10 @@ document.addEventListener('DOMContentLoaded', () => {
 		var newX=calcLabelPos(newcharges,'slnewcharge')
 		moveLabel("newchargeslab",newcharges,newX);
 		if (timeToRetire>0 && savePerYear>0 && returns>0) {
-			calcChart()
+			calcChart();
+			var htmlString=chartText()
+			var div=d3.select("#chartText");
+			div.html(htmlString);
 		}
 
 	})
@@ -91,7 +94,10 @@ document.addEventListener('DOMContentLoaded', () => {
 		var newX=calcLabelPos(timeToRetire,"slretire")
 		moveLabel("retirelab",timeToRetire,newX);
 		if (timeToRetire>0 && savePerYear>0 && returns>0) {
-			calcChart()
+			calcChart();
+			var htmlString=chartText()
+			var div=d3.select("#chartText");
+			div.html(htmlString);
 		}
 	});
 
@@ -102,7 +108,10 @@ document.addEventListener('DOMContentLoaded', () => {
 		var newX=calcLabelPos(charges,"slcharges")
 		moveLabel("chargeslab",charges,newX);
 		if (timeToRetire>0 && savePerYear>0 && returns>0) {
-			calcChart()
+			calcChart();
+			var htmlString=chartText()
+			var div=d3.select("#chartText");
+			div.html(htmlString);
 		}
 	});
 
