@@ -113,7 +113,10 @@ document.addEventListener('DOMContentLoaded', () => {
 		var newX=calcLabelPos(returns,"slreturns")
 		moveLabel("returnslab",returns,newX);
 		if (timeToRetire>0 && savePerYear>0 && returns>0) {
-			calcChart()
+			calcChart();
+			var htmlString=chartText()
+			var div=d3.select("#chartText");
+			div.html(htmlString);
 		}
 	});
 
@@ -170,4 +173,22 @@ document.addEventListener('DOMContentLoaded', () => {
 			</div>
 			`;
 	}
+
+	function chartText() {
+		console.log("chartText")
+		return `
+			<div class="chartOutput">${"If you invest "}</div>
+			<div class="chartHighlights">${"£"+d3.format(",")(savePerYear*1000)}</div>
+			<div class="chartOutput">${" a year for your retirement "}</div>
+			<div class="chartHighlights">${timeToRetire}</div>
+			<div class="chartOutput">${" years away, and the fund’s total costs are "}</div>
+			<div class="chartHighlights">${charges+"%"}</div>
+			<div class="chartOutput">${" ofthe money invested, and the fund manager achieves average return of "}</div>
+			<div class="chartHighlights">${returns+"%"}</div>
+			<div class="chartOutput">${" a year before fees, yours savings pot will grow to "}</div>
+			`;
+
+
+	}
+
 });

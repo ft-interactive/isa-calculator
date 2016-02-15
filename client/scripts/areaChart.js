@@ -1,4 +1,6 @@
-	import d3 from 'd3';
+import d3 from 'd3';
+
+
 export function drawChart (xDomain, dataset) {
 		//Obviously data will change
 		//console.log (dataset)
