@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	{"divID":"charges","className":"slideholder","HTML":"Charges (per cent)","labName":"chargeslab","pos":charges,"sliderID":"slcharges","min":0,"max":3,"step":0.1},
 	{"divID":"returns","className":"slideholder","HTML":"Returns (per cent)","labName":"returnslab","pos":returns,"sliderID":"slreturns","min":0,"max":20,"step":0.1},
 	{"divID":"newCharges","className":"dim","HTML":"Charges (per cent)","labName":"newchargeslab","pos":newcharges,"sliderID":"slnewcharge","min":0,"max":1,"step":0.1},
-	{"divID":"inRetirement","className":"dim","HTML":"Years in retirement","labName":"inRetirelab","pos":inRetirement,"sliderID":"slnewcharge","min":0,"max":1,"step":1}]
+	{"divID":"inRetirement","className":"dim","HTML":"Years in retirement","labName":"inRetirelab","pos":inRetirement,"sliderID":"slinreture","min":0,"max":50,"step":1}]
 
 	//Add sliders
 	var htmlString="";
@@ -60,7 +60,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		//Add label to the newChanges slider
 		if (firstrun) {
 			addLabel("newCharges","newchargeslab");
-			firstrun=false;
 			}
 		//Add an oninput event to the newChanges slider, not onchange as this is only triggered when mouse is released
 		div=d3.select("#slnewcharge");
@@ -84,6 +83,25 @@ document.addEventListener('DOMContentLoaded', () => {
 			var div=d3.select("#chartText");
 			div.html(htmlString);
 		}
+		//Make the inRetirement slider opaque
+		div=d3.select("#inRetirement");
+		div.attr("class","slideholder");
+		//Add label to the inRetirement slider
+		if (firstrun) {
+			addLabel("inRetirement","inRetirelab");
+			firstrun=false;
+			}
+		//Refresh label position for slinreture
+		var newX=calcLabelPos(inRetirement,'slinreture')
+		moveLabel("inRetirelab",inRetirement,newX);
+		//Add an oninput event to the inRetirement slider, not onchange as this is only triggered when mouse is released
+		div=d3.select("#slinreture");
+		div.on("input",function(d){
+			var inRetirement=this.value;
+			var newX=calcLabelPos(inRetirement,'slinreture')
+			moveLabel("inRetirelab",inRetirement,newX);
+		})
+
 
 	})
 
@@ -133,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	function calcChart () {
 		var dataset=[];
 		var xdomain=[0,Number(timeToRetire)];
-		for (var i = 0; i < Number(timeToRetire); i++) {
+		for (var i = 0; i < Number(timeToRetire)+1; i++) {
 			if(i>0) {
 				var cost=(((savePerYear*1000)/100)*charges)+dataset[i-1].cost;
 			}
@@ -184,7 +202,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 	function chartText() {
-		console.log("chartText")
 		return `
 			<div class="chartOutput">${"If you invest "}</div>
 			<div class="chartHighlights">${"£"+d3.format(",")(savePerYear*1000)}</div>
