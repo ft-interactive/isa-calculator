@@ -83,45 +83,37 @@ p {
 
 .outputs{
   margin-top: 30px;
-  height:400px;
+  height:100%;
   display: block;
   background-color: #ccc2c2;
   font-family: MetricWeb;
   font-size: 22px;
-  font-weight: 600;
+  font-weight: 550;
 }
 
 .chart {
   width: 100%;
-  height: 100%;
-}
-
-.chartHighlights {
-  display: inline;
-  font-family: MetricWeb;
-  font-size: 20px;
-  font-weight: 600;
-}
-
-.slideholderTop {
-  float:left;
-  width: 95%;
-  font-family: MetricWeb;
-  font-size: 22px;
-  font-weight: 600;
-  position: relative;
-  margin: 0 0 0 0;
-  opacity: 1.0;
+  height: 400px;
 }
 
 .slideholder {
   float:left;
   width: 95%;
   font-family: MetricWeb;
-  font-size: 22px;
+  font-size: 20;
   font-weight: 600;
   position: relative;
   margin: 8px 0 0 0;
+  opacity: 1.0;
+}
+.slideholderTop {
+  float:left;
+  width: 95%;
+  font-family: MetricWeb;
+  font-size: 20px;
+  font-weight: 600;
+  position: relative;
+  margin: 0 0 0 0;
   opacity: 1.0;
 }
 
@@ -168,7 +160,9 @@ p {
   font-size: 20px;
   font-weight: 400;
 }
+
 //Charts styling
+
 .axis {
   font-family: MetricWeb;
   font-size: 20px;
@@ -186,6 +180,7 @@ p {
 }
 
 .chartOutput{
+  margin-top: 10px;
   display: inline;
   text-align: left;
   font-family: MetricWeb;
@@ -193,10 +188,15 @@ p {
   font-weight: 400;
 }
 
+.chartHighlights {
+  display: inline;
+  font-family: MetricWeb;
+  font-size: 20px;
+  font-weight: 600;
+  color: #76acb8;
+}
+
 //End chart styling
-
-
-
 
 ///
 
@@ -226,6 +226,12 @@ p {
     display: block;
     margin: 0 auto;
     width: 85%;
+  }
+  .slideholderTop {
+    font-size: 22px;
+  }
+  .slideholder {
+    font-size: 22px;
   }
 
 }

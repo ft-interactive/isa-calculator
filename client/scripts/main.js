@@ -192,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			<div class="chartHighlights">${timeToRetire}</div>
 			<div class="chartOutput">${" years away, and the fund’s total costs are "}</div>
 			<div class="chartHighlights">${charges+"%"}</div>
-			<div class="chartOutput">${" ofthe money invested, and the fund manager achieves average return of "}</div>
+			<div class="chartOutput">${" of the money invested, and the fund manager achieves average return of "}</div>
 			<div class="chartHighlights">${returns+"%"}</div>
 			<div class="chartOutput">${" a year before fees, yours savings pot will grow to "}</div>
 			`;
