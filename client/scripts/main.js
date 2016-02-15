@@ -184,10 +184,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	//Moves the label under the new thumb position
 	function moveLabel (divId, labelText, pos) {
+		if ((window.innerWidth)>640) {
+			var topPos=24
+		}
+		else {var topPos=21};
 		var label=d3.select('#'+String(divId))
 		.html(labelText)
 		.style('left', pos+'px')
-		.style('top', '26px');
+		.style('top', topPos+'px');
 	}
 
 	function slidertemplate (annotations) {
