@@ -68,9 +68,9 @@ p {
 .pressentation {
   display: block;
   margin: 0 auto;
-  width: 65%;
+  width: 80%;
   font-family: MetricWeb;
-  font-size: 20px;
+  font-size: 18px;
   color: #43423e;
 }
 
@@ -86,8 +86,6 @@ p {
   height:100%;
   display: block;
   background-color: #ccc2c2;
-  font-family: MetricWeb;
-  font-size: 22px;
   font-weight: 600;
 }
 
@@ -99,8 +97,6 @@ p {
 .slideholder {
   float:left;
   width: 95%;
-  font-family: MetricWeb;
-  font-size: 20;
   font-weight: 600;
   position: relative;
   margin: 8px 0 0 0;
@@ -109,8 +105,6 @@ p {
 .slideholderTop {
   float:left;
   width: 95%;
-  font-family: MetricWeb;
-  font-size: 20px;
   font-weight: 600;
   position: relative;
   margin: 0 0 0 0;
@@ -121,8 +115,6 @@ p {
   float:left;
   width: 95%;
   text-align: left;
-  font-family: MetricWeb;
-  font-size: 22px;
   font-weight: 600;
   position: relative;
   margin: 8px 0 0 0;
@@ -133,8 +125,6 @@ p {
   float:left;
   text-align: left;
   width: 50%;
-  font-family: MetricWeb;
-  font-size: 20px;
   font-weight: 400;
 }
 
@@ -142,8 +132,6 @@ p {
   float: right;
   text-align: right;
   width: 50%;
-  font-family: MetricWeb;
-  font-size: 20px;
   font-weight: 400;
 }
 
@@ -156,16 +144,12 @@ p {
   text-align: center; 
   border-radius: 8px; 
   display: inline-block;
-  font-family: MetricWeb;
-  font-size: 20px;
   font-weight: 400;
 }
 
 //Charts styling
 
 .axis {
-  font-family: MetricWeb;
-  font-size: 20px;
   font-weight: 400;
 }
 .axis path,
@@ -183,15 +167,11 @@ p {
   margin-top: 10px;
   display: inline;
   text-align: left;
-  font-family: MetricWeb;
-  font-size: 20px;
   font-weight: 400;
 }
 
 .chartHighlights {
   display: inline;
-  font-family: MetricWeb;
-  font-size: 20px;
   font-weight: 600;
   color: #76acb8;
 }
@@ -226,12 +206,30 @@ p {
     display: block;
     margin: 0 auto;
     width: 85%;
+    font-size: 20px;
   }
+  .slideLabel {
+    font-size: 20px;
+  }
+
   .slideholderTop {
-    font-size: 22px;
+    font-size: 20px;
   }
+
   .slideholder {
-    font-size: 22px;
+    font-size: 20px;
+  }
+
+  .axis {
+    font-size: 20px;
+  }
+
+  .chartOutput{
+    font-size: 20px;
+  }
+
+  .chartHighlights {
+    font-size: 20px;
   }
 
 }
