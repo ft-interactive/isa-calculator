@@ -85,7 +85,6 @@ p {
   margin-top: 30px;
   height:100%;
   display: block;
-  background-color: #ccc2c2;
   font-weight: 600;
 }
 
@@ -152,11 +151,19 @@ p {
 .axis {
   font-weight: 400;
 }
-.axis path,
-.axis line {
+
+.x.axis path {
+  stroke-width:1px;
+  stroke: #9ba497;
   fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
+}
+
+.y.axis line {
+  stroke-width:1px;
+}
+
+.y.axis path{
+  display:none;
 }
 
 .area {

@@ -6,7 +6,7 @@ export function drawChart (xDomain, dataset) {
 		dataset.sort(function(a, b) {
 					return d3.descending(+a.year, +b.year);
 				});
-		var margin = {top: 20, right: 20, bottom: 20, left: 30};
+		var margin = {top: 20, right: 10, bottom: 20, left: 40};
 		var width = (document.getElementById('areaChart').getBoundingClientRect().width)-margin.left - margin.right;
 	    var height = (document.getElementById('areaChart').getBoundingClientRect().height)-margin.top - margin.bottom;
 	    d3.select("#areaChart")
@@ -18,7 +18,7 @@ export function drawChart (xDomain, dataset) {
 
 		var y = d3.scale.linear()
 			.domain([0,d3.max(dataset, function(d) { return d.cost; })])
-			.range([height, 0]);
+			.range([height, margin.top]);
 
 		var xAxis = d3.svg.axis()
 		    .scale(x)
