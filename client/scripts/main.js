@@ -156,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	function calcChart () {
 		var compRate=Number(returns)+1
 		console.log(compRate)
-		var xdomain=[0,Number(timeToRetire)];
+		var xdomain=[1,Number(timeToRetire)];
 		var dataset=Array(Number(timeToRetire)).fill(savePerYear).reduce((array, element, index) => {
 			array.push({year: index + 1, cost: !array.length ? element : array[array.length-1].cost * compRate + savePerYear});
 			return array;
