@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	var inRetirement=0;
 	var firstrun=true;
 
+	//Intial set up perameters for the sliders
 	var slideValues=[
 	{"divID":"save","className":"slideholderTop","HTML":"Save each year (£k)","labName":"savelab","pos":savePerYear,"sliderID":"slsave","min":0,"max":15,"step":0.1},
 	{"divID":"toRetire","className":"slideholder","HTML":"Time to retirement (years)","labName":"retirelab","pos":timeToRetire,"sliderID":"slretire","min":0,"max":50,"step":1},
@@ -36,8 +37,9 @@ document.addEventListener('DOMContentLoaded', () => {
 		slideHolder.html(htmlString);
 	}
 
-	//Add labels to slider then move to correct postion.
+	//Add labels to slider then move them to correct postion.
 	//If I call addLabel() and moveLabel() in loop above it doesn't work?
+	//Labels for the last two sliders are dependeant on values entered by the first florr so added later
 	for (var i = 0; i < 4; i++) {
 		var div=slideValues[i].divID;
 		var labName=slideValues[i].labName;
@@ -147,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	});
 
-	//Data for chart
+	//Data for chart, most of this is made up as I don't yet have the maths
 	function calcChart () {
 		var dataset=[];
 		var xdomain=[0,Number(timeToRetire)];
@@ -163,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	}
 
-	//Adds a div into the div that holds the slider to use as a label
+	//Adds a dive to hold the slider label
 	function addLabel(divID,labelID) {
 		var label=d3.select('#'+String(divID)).append("div");
 		label
@@ -182,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		return posX;
 	}
 
-	//Moves the label under the new thumb position
+	//Moves the label over the top of new thumb position
 	function moveLabel (divId, labelText, pos) {
 		if ((window.innerWidth)>640) {
 			var topPos=24
@@ -217,8 +219,6 @@ document.addEventListener('DOMContentLoaded', () => {
 			<div class="chartHighlights">${returns+"%"}</div>
 			<div class="chartOutput">${" a year before fees, yours savings pot will grow to "}</div>
 			`;
-
-
 	}
 
 });

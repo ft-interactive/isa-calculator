@@ -14,7 +14,7 @@ export function drawChart (xDomain, dataset) {
 	    //Set up scales
 		var x = d3.scale.linear()
 			.domain(xDomain)
-			.range([ 0, width - padding[1] - padding[3] ]);
+			.range([0, width - padding[1] - padding[3] ]);
 
 		var y = d3.scale.linear()
 			.domain([d3.max(dataset, function(d) { return d.cost; }),0])
@@ -46,11 +46,12 @@ export function drawChart (xDomain, dataset) {
 
 		svg.append("g")
 			.attr("class", "x axis")
-			.attr("transform", "translate(0," + height + ")")
+			.attr("transform", "translate(0," + height +padding[0]+padding[2]+ ")")
 			.call(xAxis);
 
 		svg.append("g")
 			.attr("class", "y axis")
+			.attr("transform", "translate(0,"+ (padding[2])+")")
 			.call(yAxis)
 
 
