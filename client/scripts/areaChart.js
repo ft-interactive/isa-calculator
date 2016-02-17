@@ -46,12 +46,12 @@ export function drawChart (xDomain, dataset) {
 
 		svg.append("g")
 			.attr("class", "x axis")
-			.attr("transform", "translate(0," + height +padding[0]+padding[2]+ ")")
+			.attr("transform", "translate(0," + height + ")")
 			.call(xAxis);
 
 		svg.append("g")
 			.attr("class", "y axis")
-			.attr("transform", "translate(0,"+ (padding[2])+")")
+			.attr("transform", "translate(0,"+ (padding[0])+")")
 			.call(yAxis)
 
 
