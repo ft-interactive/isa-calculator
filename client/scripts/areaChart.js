@@ -6,19 +6,19 @@ export function drawChart (xDomain, dataset) {
 		dataset.sort(function(a, b) {
 					return d3.descending(+a.year, +b.year);
 				});
-		var padding = [ 10, 0, 30, 45 ];
-		var width = document.getElementById('areaChart').getBoundingClientRect().width-(padding[1])-(padding[3]);
-	    var height = document.getElementById('areaChart').getBoundingClientRect().height-(padding[0])-(padding[2])
+		var margin = {top: 20, right: 20, bottom: 20, left: 30};
+		var width = (document.getElementById('areaChart').getBoundingClientRect().width)-margin.left - margin.right;
+	    var height = (document.getElementById('areaChart').getBoundingClientRect().height)-margin.top - margin.bottom;
 	    d3.select("#areaChart")
 	    .html("")
 	    //Set up scales
 		var x = d3.scale.linear()
 			.domain(xDomain)
-			.range([0, width - padding[1] - padding[3] ]);
+			.range([margin.left, width]);
 
 		var y = d3.scale.linear()
-			.domain([d3.max(dataset, function(d) { return d.cost; }),0])
-			.range([ padding[2], height - padding[2] ]);
+			.domain([0,d3.max(dataset, function(d) { return d.cost; })])
+			.range([height, 0]);
 
 		var xAxis = d3.svg.axis()
 		    .scale(x)
@@ -34,10 +34,9 @@ export function drawChart (xDomain, dataset) {
 		    .y1(function(d) { return y(d.cost); });
 
 		var svg = d3.select("#areaChart").append("svg")
-		    .attr("width", width + padding[3] + padding[1])
-		    .attr("height", height + padding[0] + padding[2])
-		  .append("g")
-		    .attr("transform", "translate(" + padding[3] + "," + padding[0] + ")");
+		    .attr("width", width + margin.left + margin.right)
+		    .attr("height", height + margin.top + margin.bottom)
+		  
 
 		svg.append("path")
 			.datum(dataset)
@@ -51,8 +50,8 @@ export function drawChart (xDomain, dataset) {
 
 		svg.append("g")
 			.attr("class", "y axis")
-			.attr("transform", "translate(0,"+ (padding[0])+")")
-			.call(yAxis)
+			.attr("transform", "translate("+margin.left+",0)")
+			.call(yAxis);
 
 
 
