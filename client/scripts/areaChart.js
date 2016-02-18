@@ -2,7 +2,7 @@ import d3 from 'd3';
 
 export function drawChart (xDomain, dataset) {
 		//Obviously data will change
-		console.log (dataset)
+		//console.log (dataset)
 		// dataset.sort(function(a, b) {
 		// 			return d3.descending(+a.year, +b.year);
 		// 		});
@@ -21,7 +21,6 @@ export function drawChart (xDomain, dataset) {
 			.domain([0,d3.max(dataset, function(d) { return d.cost; })])
 			.range([height, margin.top]);
 
-
 		var xAxis = d3.svg.axis()
 		    .scale(x)
 		    .orient("bottom");
@@ -39,7 +38,6 @@ export function drawChart (xDomain, dataset) {
 		    .attr("width", width + margin.left + margin.right)
 		    .attr("height", height + margin.top + margin.bottom)
 		  
-
 		svg.append("path")
 			.datum(dataset)
 			.attr("class", "area")

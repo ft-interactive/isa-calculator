@@ -18,7 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	var returns=0
 	var newCharges=0;
 	var newReturns=0;
-	//var inRetirement=0;
+	var totalValue=0;
+	var revisedValue=0;
 	var firstrun=true;
 
 	//Intial set up perameters for the sliders
@@ -27,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	{"divID":"toRetire","className":"slideholder","HTML":"Time to retirement (years)","labName":"retirelab","pos":timeToRetire,"sliderID":"slretire","min":0,"max":50,"step":1},
 	{"divID":"nomReturn","className":"slideholder","HTML":"Nominal return (per cent)","labName":"nomReturnlab","pos":nomReturn,"sliderID":"slnomReturn","min":0,"max":0.1,"step":0.01},
 	{"divID":"charges","className":"slideholder","HTML":"Charges (per cent)","labName":"chargeslab","pos":charges,"sliderID":"slcharges","min":0,"max":0.01,"step":0.001},
-	{"divID":"newCharges","className":"dim","HTML":"Revised charges (per cent)","labName":"newChargeslab","pos":newCharges,"sliderID":"slnewCharges","min":0,"max":0.01,"step":0.001}]
+	{"divID":"newCharges","className":"dim","HTML":"Revised charges (per cent)","labName":"newChargeslab","pos":newCharges,"sliderID":"slnewCharges","min":0,"max":0.03,"step":0.001}]
 
 	//{"divID":"inRetirement","className":"dim","HTML":"Years in retirement","labName":"inRetirelab","pos":inRetirement,"sliderID":"slinreture","min":0,"max":50,"step":1}
 
@@ -104,32 +105,33 @@ document.addEventListener('DOMContentLoaded', () => {
 			var div=d3.select("#chartText");
 			div.html(htmlString);
 		}
-		//Make the newChargesanges slider opaque
+		//Make the newCharges slider opaque
 		var div=d3.select("#newCharges");
 		div.attr("class","slideholder");
-		//Add label to the newChargesanges slider
+		//Add label to the newCharges slider
 		if (firstrun) {
 			addLabel("newCharges","newChargeslab");
 			firstrun=false;
 			}
-		//Add an oninput event to the newChargesanges slider, not onchange as this is only triggered when mouse is released
+		//Add an oninput event to the newCharges slider, not onchange as this is only triggered when mouse is released
 		div=d3.select("#slnewCharges");
-		div.node().max=charges;
+		//div.node().max=charges;
 		div.on("input",function(d){
 			newCharges=this.value;
 			var newX=calcLabelPos(newCharges,'slnewCharges')
 			moveLabel("newChargeslab",newCharges,newX);
+			newReturns=calcReturns(nomReturn,newCharges);
+			console.log("newReturns",newReturns);
 		})
-		//Refresh the ranges of the newChargesanges slider
-		var rangediv=d3.select("#newCharges");
-		rangediv.selectAll('.rangeright')
-		.html(charges)
-		//Refresh the label on the newChargesanges slider when slsave slider changes
+		//Refresh the ranges of the newCharges slider
+		// var rangediv=d3.select("#newCharges");
+		// rangediv.selectAll('.rangeright')
+		// .html(charges)
+		//Refresh the label on the newCharges slider when slsave slider changes
 		newCharges=div.node().value;
 		var newX=calcLabelPos(newCharges,'slnewCharges')
 		moveLabel("newChargeslab",newCharges,newX);
 		if (timeToRetire>0 && savePerYear>0 && nomReturn>0 && charges>0) {
-			newReturns=calcReturns(nomReturn,newCharges);
 			calcChart();
 			var htmlString=chartText()
 			var div=d3.select("#chartText");
@@ -148,15 +150,18 @@ document.addEventListener('DOMContentLoaded', () => {
 	//Data for chart, most of this is made up as I don't yet have the maths
 	function calcChart () {
 		var compRate=Number(returns)+1
-		var newCompRate=Number(newReturns)
+		var newCompRate=Number(newReturns)+1
 		console.log("compRate ",compRate);
-		console.log("savePerYear ",savePerYear*1000)
+		console.log("newCompRate ",newCompRate)
 		var xdomain=[1,Number(timeToRetire)];
 		var dataset=Array(Number(timeToRetire)).fill(savePerYear*1000).reduce((array, element, index) => {
 			array.push({year: index + 1, cost: !array.length ? element : array[array.length-1].cost * compRate + (savePerYear*1000),cost2: !array.length ? element : array[array.length-1].cost2 * newCompRate + (savePerYear*1000)});
 			return array;
 			}, []);
-		//console.log(dataset)
+		var index=dataset.length-1
+		totalValue=dataset[index].cost;
+		revisedValue=dataset[index].cost2;
+		console.log(totalValue,revisedValue);
 		drawChart (xdomain, dataset);
 
 	}
