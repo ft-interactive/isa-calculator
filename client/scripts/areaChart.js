@@ -14,7 +14,7 @@ export function drawChart (xDomain, dataset) {
 	    //Set up scales
 		var x = d3.scale.linear()
 			.domain(xDomain)
-			.range([margin.left, width+margin.left]);
+			.range([margin.left, width+margin.left-margin.right]);
 
 		var y = d3.scale.linear()
 			//.domain([0,1000000])

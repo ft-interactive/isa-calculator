@@ -35,9 +35,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	//Add sliders
 	var htmlString="";
 	var testString=""
-	for (var i = 0; i < slideValues.length; i++) {
+	for (var i = 0; i < 4; i++) {
 		var slideHolder=d3.select("#controls");
 		htmlString=htmlString+slidertemplate (slideValues[i]);
+		slideHolder.html(htmlString);
+	}
+	htmlString="";
+	testString=""
+	for (var j = 4; j < 5; j++) {
+		var slideHolder=d3.select("#controls2");
+		htmlString=htmlString+slidertemplate (slideValues[j]);
 		slideHolder.html(htmlString);
 	}
 

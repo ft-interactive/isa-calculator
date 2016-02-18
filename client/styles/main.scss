@@ -74,23 +74,29 @@ p {
   color: #43423e;
 }
 
+
 .inputs{
   margin-top: 30px;
   float: left;
+  display: block;
   height: 100%;
+}
+
+.inputs2{
+  margin-top: 6px;
+  float: left;
   display: block;
 }
 
 .outputs{
   margin-top: 30px;
-  height:100%;
   display: block;
   font-weight: 600;
 }
 
 .chart {
   width: 100%;
-  height: 400px;
+  height: 390px;
 }
 
 .slideholder {
@@ -219,6 +225,9 @@ p {
     margin: 0 auto;
     width: 85%;
     font-size: 20px;
+  }
+  .inputs2{
+    margin-top: 0px;
   }
   .slideLabel {
     font-size: 20px;
