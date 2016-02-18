@@ -60,6 +60,13 @@ document.addEventListener('DOMContentLoaded', () => {
 		savePerYear=Number(this.value);
 		var newX=calcLabelPos(savePerYear,"slsave")
 		moveLabel("savelab",savePerYear,newX);
+		if (timeToRetire>0 && savePerYear>0 && nomReturn>0 && charges>0) {
+			returns=calcReturns(nomReturn,charges);
+			calcChart();
+			var htmlString=chartText()
+			var div=d3.select("#chartText");
+			div.html(htmlString);
+		}
 	})
 
 	//Add event listeners to slretire slider
