@@ -156,10 +156,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	//Data for chart, most of this is made up as I don't yet have the maths
 	function calcChart () {
-		var compRate=Number(returns)+1
-		var newCompRate=Number(newReturns)+1
-		console.log("compRate ",compRate);
-		console.log("newCompRate ",newCompRate)
+		var compRate=Number(returns)+1;
+		var newCompRate=Number(newReturns)+1;
 		var xdomain=[1,Number(timeToRetire)];
 		var dataset=Array(Number(timeToRetire)).fill(savePerYear*1000).reduce((array, element, index) => {
 			array.push({year: index + 1, cost: !array.length ? element : array[array.length-1].cost * compRate + (savePerYear*1000),cost2: !array.length ? element : array[array.length-1].cost2 * newCompRate + (savePerYear*1000)});
@@ -168,7 +166,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		var index=dataset.length-1
 		totalValue=dataset[index].cost;
 		revisedValue=dataset[index].cost2;
-		console.log(totalValue,revisedValue);
 		drawChart (xdomain, dataset);
 
 	}
@@ -226,6 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			<div class="chartOutput">${" of the money invested, and the fund manager achieves average return of "}</div>
 			<div class="chartHighlights">${nomReturn+"%"}</div>
 			<div class="chartOutput">${" a year before fees, yours savings pot will grow to "}</div>
+			<div class="chartHighlights">${"£"+d3.format(",.2f")(totalValue)}</div>
 			`;
 	}
 

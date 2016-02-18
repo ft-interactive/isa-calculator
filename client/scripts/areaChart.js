@@ -17,8 +17,8 @@ export function drawChart (xDomain, dataset) {
 			.range([margin.left, width+margin.left]);
 
 		var y = d3.scale.linear()
-			.domain([0,1000000])
-			//.domain([0,d3.max(dataset, function(d) { return d.cost; })])
+			//.domain([0,1000000])
+			.domain([0,d3.max(dataset, function(d) { return d.cost; })])
 			.range([height, margin.top]);
 
 		var xAxis = d3.svg.axis()
