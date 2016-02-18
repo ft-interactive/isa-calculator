@@ -13,10 +13,10 @@ document.addEventListener('DOMContentLoaded', () => {
 	//Variables that hold the slider values for math calculations	
 	var savePerYear=2;
 	var timeToRetire=40;
-	var nomReturn=0.06;
-	var charges=0.005
-	var returns=0
-	var newCharges=0.02;
+	var nomReturn=6.0;
+	var charges=2.0
+	var returns=2
+	var newCharges=0.5;
 	var newReturns=0;
 	var totalValue=0;
 	var revisedValue=0;
@@ -26,9 +26,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	var slideValues=[
 	{"divID":"save","className":"slideholderTop","HTML":"Save each year (£k)","labName":"savelab","pos":savePerYear,"sliderID":"slsave","min":0,"max":15,"step":0.1},
 	{"divID":"toRetire","className":"slideholder","HTML":"Time to retirement (years)","labName":"retirelab","pos":timeToRetire,"sliderID":"slretire","min":0,"max":50,"step":1},
-	{"divID":"nomReturn","className":"slideholder","HTML":"Nominal return (per cent)","labName":"nomReturnlab","pos":nomReturn,"sliderID":"slnomReturn","min":0,"max":0.1,"step":0.01},
-	{"divID":"charges","className":"slideholder","HTML":"Charges (per cent)","labName":"chargeslab","pos":charges,"sliderID":"slcharges","min":0,"max":0.01,"step":0.001},
-	{"divID":"newCharges","className":"slideholder","HTML":"Revised charges (per cent)","labName":"newChargeslab","pos":newCharges,"sliderID":"slnewCharges","min":0,"max":0.03,"step":0.001}]
+	{"divID":"nomReturn","className":"slideholder","HTML":"Nominal return (per cent)","labName":"nomReturnlab","pos":nomReturn,"sliderID":"slnomReturn","min":0,"max":10,"step":0.1},
+	{"divID":"charges","className":"slideholder","HTML":"Charges (per cent)","labName":"chargeslab","pos":charges,"sliderID":"slcharges","min":0,"max":10,"step":0.1},
+	{"divID":"newCharges","className":"slideholder","HTML":"Revised charges (per cent)","labName":"newChargeslab","pos":newCharges,"sliderID":"slnewCharges","min":0,"max":10,"step":0.1}]
 
 	//{"divID":"inRetirement","className":"dim","HTML":"Years in retirement","labName":"inRetirelab","pos":inRetirement,"sliderID":"slinreture","min":0,"max":50,"step":1}
 
@@ -144,21 +144,27 @@ document.addEventListener('DOMContentLoaded', () => {
 	div.html(htmlString);
 
 	function calcReturns(returns, charge) {
-		return (returns-charge)
+		return (returns)
 	}
 
 	//Data for chart, most of this is made up as I don't yet have the maths
 	function calcChart() {
-		var compRate=Number(returns)+1;
-		var newCompRate=Number(newReturns)+1;
+		var changeRate=1-(charges/100);
+		var newchangeRate=1-(newCharges/100);
+		var compRate=1+(Number(returns)/100);
+		console.log("returns ",returns)
+		console.log("compounding rate ",compRate)
+		console.log("change rate ",changeRate);
+		var newCompRate=1+(Number(newReturns)/100);
 		var xdomain=[1,Number(timeToRetire)];
 		var dataset=Array(Number(timeToRetire)).fill(savePerYear*1000).reduce((array, element, index) => {
-			array.push({year: index + 1, cost: !array.length ? element : array[array.length-1].cost * compRate + (savePerYear*1000),cost2: !array.length ? element : array[array.length-1].cost2 * newCompRate + (savePerYear*1000)});
+			array.push({year: index + 1, cost: !array.length ? element : (array[array.length-1].cost * compRate + (savePerYear*1000))*changeRate,cost2: !array.length ? element : (array[array.length-1].cost2 * newCompRate + (savePerYear*1000))*newchangeRate});
 			return array;
 			}, []);
 		var index=dataset.length-1
 		totalValue=dataset[index].cost;
 		revisedValue=dataset[index].cost2;
+		console.log(totalValue, revisedValue)
 		drawChart (xdomain, dataset);
 
 	}
