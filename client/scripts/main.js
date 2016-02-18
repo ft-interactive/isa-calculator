@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	var returns=0
 	var newCharges=0;
 	var newReturns=0;
-	// var inRetirement=0;
+	//var inRetirement=0;
 	var firstrun=true;
 
 	//Intial set up perameters for the sliders
@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		var newX=calcLabelPos(newCharges,'slnewCharges')
 		moveLabel("newChargeslab",newCharges,newX);
 		if (timeToRetire>0 && savePerYear>0 && nomReturn>0 && charges>0) {
-			returns=calcReturns(nomReturn,charges);
+			newReturns=calcReturns(nomReturn,newCharges);
 			calcChart();
 			var htmlString=chartText()
 			var div=d3.select("#chartText");
@@ -138,6 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	});
 	
 	returns=calcReturns(nomReturn,charges);
+	newReturns=calcReturns(nomReturn,newCharges);
 	calcChart()
 
 	function calcReturns(returns, charge) {
@@ -146,13 +147,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	//Data for chart, most of this is made up as I don't yet have the maths
 	function calcChart () {
-		console.log("calcChart")
 		var compRate=Number(returns)+1
+		var newCompRate=Number(newReturns)
 		console.log("compRate ",compRate);
 		console.log("savePerYear ",savePerYear*1000)
 		var xdomain=[1,Number(timeToRetire)];
 		var dataset=Array(Number(timeToRetire)).fill(savePerYear*1000).reduce((array, element, index) => {
-			array.push({year: index + 1, cost: !array.length ? element : array[array.length-1].cost * compRate + (savePerYear*1000)});
+			array.push({year: index + 1, cost: !array.length ? element : array[array.length-1].cost * compRate + (savePerYear*1000),cost2: !array.length ? element : array[array.length-1].cost2 * newCompRate + (savePerYear*1000)});
 			return array;
 			}, []);
 		//console.log(dataset)

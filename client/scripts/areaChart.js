@@ -2,7 +2,7 @@ import d3 from 'd3';
 
 export function drawChart (xDomain, dataset) {
 		//Obviously data will change
-		//console.log (dataset)
+		console.log (dataset)
 		// dataset.sort(function(a, b) {
 		// 			return d3.descending(+a.year, +b.year);
 		// 		});
