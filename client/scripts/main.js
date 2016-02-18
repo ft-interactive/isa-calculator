@@ -119,6 +119,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			var div=d3.select("#chartText");
 			div.html(htmlString);
 		}
+		var div=d3.select("#slnewCharges")
+
 	});
 
 	//Add event listeners to slcharges slider
