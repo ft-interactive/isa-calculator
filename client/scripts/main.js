@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	var nomReturn=0.06;
 	var charges=0.005
 	var returns=0
-	var newCharges=0;
+	var newCharges=0.02;
 	var newReturns=0;
 	var totalValue=0;
 	var revisedValue=0;
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	{"divID":"toRetire","className":"slideholder","HTML":"Time to retirement (years)","labName":"retirelab","pos":timeToRetire,"sliderID":"slretire","min":0,"max":50,"step":1},
 	{"divID":"nomReturn","className":"slideholder","HTML":"Nominal return (per cent)","labName":"nomReturnlab","pos":nomReturn,"sliderID":"slnomReturn","min":0,"max":0.1,"step":0.01},
 	{"divID":"charges","className":"slideholder","HTML":"Charges (per cent)","labName":"chargeslab","pos":charges,"sliderID":"slcharges","min":0,"max":0.01,"step":0.001},
-	{"divID":"newCharges","className":"dim","HTML":"Revised charges (per cent)","labName":"newChargeslab","pos":newCharges,"sliderID":"slnewCharges","min":0,"max":0.03,"step":0.001}]
+	{"divID":"newCharges","className":"slideholder","HTML":"Revised charges (per cent)","labName":"newChargeslab","pos":newCharges,"sliderID":"slnewCharges","min":0,"max":0.03,"step":0.001}]
 
 	//{"divID":"inRetirement","className":"dim","HTML":"Years in retirement","labName":"inRetirelab","pos":inRetirement,"sliderID":"slinreture","min":0,"max":50,"step":1}
 
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	//Add labels to slider then move them to correct postion.
 	//If I call addLabel() and moveLabel() in loop above it doesn't work?
 	//Labels for the last two sliders are dependeant on values entered by the first florr so added later
-	for (var i = 0; i < 4; i++) {
+	for (var i = 0; i < slideValues.length; i++) {
 		var div=slideValues[i].divID;
 		var labName=slideValues[i].labName;
 		addLabel(div,labName);
@@ -112,33 +112,16 @@ document.addEventListener('DOMContentLoaded', () => {
 			var div=d3.select("#chartText");
 			div.html(htmlString);
 		}
-		//Make the newCharges slider opaque
-		var div=d3.select("#newCharges");
-		div.attr("class","slideholder");
-		//Add label to the newCharges slider
-		if (firstrun) {
-			addLabel("newCharges","newChargeslab");
-			firstrun=false;
-			}
-		//Add an oninput event to the newCharges slider, not onchange as this is only triggered when mouse is released
-		div=d3.select("#slnewCharges");
-		//div.node().max=charges;
-		div.on("input",function(d){
-			newCharges=this.value;
-			var newX=calcLabelPos(newCharges,'slnewCharges')
-			moveLabel("newChargeslab",newCharges,newX);
-			newReturns=calcReturns(nomReturn,newCharges);
-			console.log("newReturns",newReturns);
-		})
-		//Refresh the ranges of the newCharges slider
-		// var rangediv=d3.select("#newCharges");
-		// rangediv.selectAll('.rangeright')
-		// .html(charges)
-		//Refresh the label on the newCharges slider when slsave slider changes
-		newCharges=div.node().value;
-		var newX=calcLabelPos(newCharges,'slnewCharges')
+	});
+
+	//Add event listeners to slcharges slider
+	var newchargesevent=d3.select("#slnewCharges");
+	newchargesevent.on("input", function(d){
+		newCharges=Number(this.value);
+		var newX=calcLabelPos(newCharges,"slnewCharges")
 		moveLabel("newChargeslab",newCharges,newX);
 		if (timeToRetire>0 && savePerYear>0 && nomReturn>0 && charges>0) {
+			newReturns=calcReturns(nomReturn,newCharges);
 			calcChart();
 			var htmlString=chartText()
 			var div=d3.select("#chartText");
@@ -166,6 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		var index=dataset.length-1
 		totalValue=dataset[index].cost;
 		revisedValue=dataset[index].cost2;
+		console.log(totalValue,revisedValue);
 		drawChart (xdomain, dataset);
 
 	}

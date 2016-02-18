@@ -34,6 +34,11 @@ export function drawChart (xDomain, dataset) {
 		    .y0(height)
 		    .y1(function(d) { return y(d.cost); });
 
+		var area2 = d3.svg.area()
+		    .x(function(d) { return x(d.year); })
+		    .y0(height)
+		    .y1(function(d) { return y(d.cost2); });
+
 		var svg = d3.select("#areaChart").append("svg")
 		    .attr("width", width + margin.left + margin.right)
 		    .attr("height", height + margin.top + margin.bottom)
@@ -42,6 +47,10 @@ export function drawChart (xDomain, dataset) {
 			.datum(dataset)
 			.attr("class", "area")
 			.attr("d", area);
+		svg.append("path")
+			.datum(dataset)
+			.attr("class", "area2")
+			.attr("d", area2);
 
 		svg.append("g")
 			.attr("class", "x axis")
