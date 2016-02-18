@@ -137,7 +137,7 @@ p {
 .slideLabel {
   background-color: #bb6d82;
   color: #fff;
-  width: 38px;
+  width: 47px;
   height: 22px;
   position: absolute;
   text-align: center; 
@@ -152,6 +152,11 @@ p {
   font-weight: 400;
 }
 
+.axis.minor line {
+  stroke: #777;
+  stroke-dasharray: 2,2;
+}
+
 .x.axis path {
   stroke-width:1px;
   stroke: #9ba497;
@@ -159,7 +164,10 @@ p {
 }
 
 .y.axis line {
-  stroke-width:1px;
+  fill: none;
+  stroke: #cec6b9;
+  stroke-dasharray:2,2;
+  shape-rendering: crispEdges;
 }
 
 .y.axis path{

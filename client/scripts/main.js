@@ -16,8 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	var nomReturn=0;
 	var charges=0
 	var returns=Number(nomReturn-charges);
-	var newnomReturn=0;
-	var inRetirement=0;
+	var newCharges=0;
+	var newReturns=0;
+	// var inRetirement=0;
 	var firstrun=true;
 
 	//Intial set up perameters for the sliders
@@ -26,13 +27,14 @@ document.addEventListener('DOMContentLoaded', () => {
 	{"divID":"toRetire","className":"slideholder","HTML":"Time to retirement (years)","labName":"retirelab","pos":timeToRetire,"sliderID":"slretire","min":0,"max":50,"step":1},
 	{"divID":"nomReturn","className":"slideholder","HTML":"Nominal return (per cent)","labName":"nomReturnlab","pos":nomReturn,"sliderID":"slnomReturn","min":0,"max":0.1,"step":0.01},
 	{"divID":"charges","className":"slideholder","HTML":"Charges (per cent)","labName":"chargeslab","pos":charges,"sliderID":"slcharges","min":0,"max":0.01,"step":0.001},
-	{"divID":"newnomReturn","className":"dim","HTML":"nomReturn (per cent)","labName":"newnomReturnlab","pos":newnomReturn,"sliderID":"slnewnomReturnarge","min":0,"max":1,"step":0.1},
-	{"divID":"inRetirement","className":"dim","HTML":"Years in retirement","labName":"inRetirelab","pos":inRetirement,"sliderID":"slinreture","min":0,"max":50,"step":1}]
+	{"divID":"newCharges","className":"dim","HTML":"Revised charges (per cent)","labName":"newChargeslab","pos":newCharges,"sliderID":"slnewCharges","min":0,"max":0.01,"step":0.001}]
+
+	//{"divID":"inRetirement","className":"dim","HTML":"Years in retirement","labName":"inRetirelab","pos":inRetirement,"sliderID":"slinreture","min":0,"max":50,"step":1}
 
 	//Add sliders
 	var htmlString="";
 	var testString=""
-	for (var i = 0; i < 6; i++) {
+	for (var i = 0; i < slideValues.length; i++) {
 		var slideHolder=d3.select("#controls");
 		htmlString=htmlString+slidertemplate (slideValues[i]);
 		slideHolder.html(htmlString);
@@ -57,54 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		savePerYear=Number(this.value);
 		var newX=calcLabelPos(savePerYear,"slsave")
 		moveLabel("savelab",savePerYear,newX);
-		//Make the newnomReturnanges slider opaque
-		var div=d3.select("#newnomReturn");
-		div.attr("class","slideholder");
-		//Add label to the newnomReturnanges slider
-		if (firstrun) {
-			addLabel("newnomReturn","newnomReturnlab");
-			}
-		//Add an oninput event to the newnomReturnanges slider, not onchange as this is only triggered when mouse is released
-		div=d3.select("#slnewnomReturnarge");
-		div.node().max=savePerYear;
-		div.on("input",function(d){
-			var newnomReturn=this.value;
-			var newX=calcLabelPos(newnomReturn,'slnewnomReturnarge')
-			moveLabel("newnomReturnlab",newnomReturn,newX);
-		})
-		//Refresh the ranges of the newnomReturnanges slider
-		var rangediv=d3.select("#newnomReturn");
-		rangediv.selectAll('.rangeright')
-		.html(savePerYear)
-		//Refresh the label on the newnomReturnanges slider when slsave slider changes
-		newnomReturn=div.node().value;
-		var newX=calcLabelPos(newnomReturn,'slnewnomReturnarge')
-		moveLabel("newnomReturnlab",newnomReturn,newX);
-		if (timeToRetire>0 && savePerYear>0 && nomReturn>0 && charges>0) {
-			calcChart();
-			returns=Number(nomReturn-charges);
-			var htmlString=chartText()
-			var div=d3.select("#chartText");
-			div.html(htmlString);
-		}
-		//Make the inRetirement slider opaque
-		div=d3.select("#inRetirement");
-		div.attr("class","slideholder");
-		//Add label to the inRetirement slider
-		if (firstrun) {
-			addLabel("inRetirement","inRetirelab");
-			firstrun=false;
-			}
-		//Refresh label position for slinreture
-		var newX=calcLabelPos(inRetirement,'slinreture')
-		moveLabel("inRetirelab",inRetirement,newX);
-		//Add an oninput event to the inRetirement slider, not onchange as this is only triggered when mouse is released
-		div=d3.select("#slinreture");
-		div.on("input",function(d){
-			var inRetirement=this.value;
-			var newX=calcLabelPos(inRetirement,'slinreture')
-			moveLabel("inRetirelab",inRetirement,newX);
-		})
 	})
 
 	//Add event listeners to slretire slider
@@ -114,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		var newX=calcLabelPos(timeToRetire,"slretire")
 		moveLabel("retirelab",timeToRetire,newX);
 		if (timeToRetire>0 && savePerYear>0 && nomReturn>0 && charges>0) {
-			returns=Number(nomReturn-charges);
+			returns=calcReturns(nomReturn,charges);
 			calcChart();
 			var htmlString=chartText()
 			var div=d3.select("#chartText");
@@ -129,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		var newX=calcLabelPos(nomReturn,"slnomReturn")
 		moveLabel("nomReturnlab",nomReturn,newX);
 		if (timeToRetire>0 && savePerYear>0 && nomReturn>0 && charges>0) {
-			returns=Number(nomReturn-charges);
+			returns=calcReturns(nomReturn,charges);
 			calcChart();
 			var htmlString=chartText()
 			var div=d3.select("#chartText");
@@ -144,13 +98,69 @@ document.addEventListener('DOMContentLoaded', () => {
 		var newX=calcLabelPos(charges,"slcharges")
 		moveLabel("chargeslab",charges,newX);
 		if (timeToRetire>0 && savePerYear>0 && nomReturn>0 && charges>0) {
-			returns=Number(nomReturn-charges);
+			returns=calcReturns(nomReturn,charges);
 			calcChart();
 			var htmlString=chartText()
 			var div=d3.select("#chartText");
 			div.html(htmlString);
 		}
+		//Make the newChargesanges slider opaque
+		var div=d3.select("#newCharges");
+		div.attr("class","slideholder");
+		//Add label to the newChargesanges slider
+		if (firstrun) {
+			addLabel("newCharges","newChargeslab");
+			firstrun=false;
+			}
+		//Add an oninput event to the newChargesanges slider, not onchange as this is only triggered when mouse is released
+		div=d3.select("#slnewCharges");
+		div.node().max=charges;
+		div.on("input",function(d){
+			newCharges=this.value;
+			var newX=calcLabelPos(newCharges,'slnewCharges')
+			moveLabel("newChargeslab",newCharges,newX);
+		})
+		//Refresh the ranges of the newChargesanges slider
+		var rangediv=d3.select("#newCharges");
+		rangediv.selectAll('.rangeright')
+		.html(charges)
+		//Refresh the label on the newChargesanges slider when slsave slider changes
+		newCharges=div.node().value;
+		var newX=calcLabelPos(newCharges,'slnewCharges')
+		moveLabel("newChargeslab",newCharges,newX);
+		if (timeToRetire>0 && savePerYear>0 && nomReturn>0 && charges>0) {
+			calcChart();
+			returns=calcReturns(nomReturn,charges);
+			var htmlString=chartText()
+			var div=d3.select("#chartText");
+			div.html(htmlString);
+		}
+
+
+		// //Make the inRetirement slider opaque
+		// div=d3.select("#inRetirement");
+		// div.attr("class","slideholder");
+		// //Add label to the inRetirement slider
+		// if (firstrun) {
+		// 	addLabel("inRetirement","inRetirelab");
+		// 	firstrun=false;
+		// 	}
+		// //Refresh label position for slinreture
+		// var newX=calcLabelPos(inRetirement,'slinreture')
+		// moveLabel("inRetirelab",inRetirement,newX);
+		// //Add an oninput event to the inRetirement slider, not onchange as this is only triggered when mouse is released
+		// div=d3.select("#slinreture");
+		// div.on("input",function(d){
+		// 	var inRetirement=this.value;
+		// 	var newX=calcLabelPos(inRetirement,'slinreture')
+		// 	moveLabel("inRetirelab",inRetirement,newX);
+		// })
+
 	});
+
+	function calcReturns(returns, charge) {
+		return returns-charge
+	}
 
 	//Data for chart, most of this is made up as I don't yet have the maths
 	function calcChart () {
@@ -180,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		var increments=slider.node().max-slider.node().min;
 		var percentage=(100/(slider.node().max-slider.node().min)*(pos));
 		var posX=slider.node().getBoundingClientRect().width;
-		var offset=((32/increments)*pos)+3;
+		var offset=((32/increments)*pos)+7;
 		posX=((posX/100)*percentage)-offset;
 		return posX;
 	}
@@ -215,9 +225,9 @@ document.addEventListener('DOMContentLoaded', () => {
 			<div class="chartOutput">${" a year for your retirement "}</div>
 			<div class="chartHighlights">${timeToRetire}</div>
 			<div class="chartOutput">${" years away, and the fund’s total costs are "}</div>
-			<div class="chartHighlights">${returns+"%"}</div>
-			<div class="chartOutput">${" of the money invested, and the fund manager achieves average return of "}</div>
 			<div class="chartHighlights">${charges+"%"}</div>
+			<div class="chartOutput">${" of the money invested, and the fund manager achieves average return of "}</div>
+			<div class="chartHighlights">${returns+"%"}</div>
 			<div class="chartOutput">${" a year before fees, yours savings pot will grow to "}</div>
 			`;
 	}
