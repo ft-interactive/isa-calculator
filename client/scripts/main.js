@@ -132,13 +132,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	returns=calcReturns(nomReturn,charges);
 	newReturns=calcReturns(nomReturn,newCharges);
 	calcChart()
+	var htmlString=chartText()
+	var div=d3.select("#chartText");
+	div.html(htmlString);
 
 	function calcReturns(returns, charge) {
 		return (returns-charge)
 	}
 
 	//Data for chart, most of this is made up as I don't yet have the maths
-	function calcChart () {
+	function calcChart() {
 		var compRate=Number(returns)+1;
 		var newCompRate=Number(newReturns)+1;
 		var xdomain=[1,Number(timeToRetire)];
@@ -197,16 +200,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	function chartText() {
 		return `
-			<div class="chartOutput">${"If you invest "}</div>
-			<div class="chartHighlights">${"£"+d3.format(",")(savePerYear*1000)}</div>
-			<div class="chartOutput">${" a year for your retirement "}</div>
-			<div class="chartHighlights">${timeToRetire}</div>
-			<div class="chartOutput">${" years away, and the fund’s total costs are "}</div>
-			<div class="chartHighlights">${charges+"%"}</div>
-			<div class="chartOutput">${" of the money invested, and the fund manager achieves average return of "}</div>
-			<div class="chartHighlights">${nomReturn+"%"}</div>
-			<div class="chartOutput">${" a year before fees, yours savings pot will grow to "}</div>
-			<div class="chartHighlights">${"£"+d3.format(",.2f")(totalValue)}</div>
+			<div class="dynamicText">${"If you invest "}</div>
+			<div class="dynamichighlights">${"£"+d3.format(",")(savePerYear*1000)}</div>
+			<div class="dynamicText">${" a year for your retirement "}</div>
+			<div class="dynamichighlights">${timeToRetire}</div>
+			<div class="dynamicText">${" years away, and the fund’s total costs are "}</div>
+			<div class="dynamichighlights">${charges+"%"}</div>
+			<div class="dynamicText">${" of the money invested, and the fund manager achieves average return of "}</div>
+			<div class="dynamichighlights">${nomReturn+"%"}</div>
+			<div class="dynamicText">${" a year before fees, yours savings pot will grow to "}</div>
+			<div class="dynamichighlights">${"£"+d3.format(",.2f")(totalValue)}</div>
 			`;
 	}
 

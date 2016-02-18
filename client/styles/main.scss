@@ -173,14 +173,16 @@ p {
   fill: #ecafaf;
 }
 
-.chartOutput{
-  margin-top: 10px;
-  display: inline;
-  text-align: left;
-  font-weight: 400;
+.dynamicHolder{
+  margin-top: 20px;
 }
 
-.chartHighlights {
+.dynamicText{
+  display: inline;
+  text-align: left;
+}
+
+.dynamichighlights {
   display: inline;
   font-weight: 600;
   color: #76acb8;
@@ -235,12 +237,17 @@ p {
     font-size: 20px;
   }
 
-  .chartOutput{
-    font-size: 20px;
+  .dynamicHolder{
+    margin-top: 20px;
   }
 
-  .chartHighlights {
-    font-size: 20px;
+  .dynamicText{
+    width: 85%;
+    font-size: 22px;
+  }
+
+  .dynamichighlights {
+    font-size: 22px;
   }
 
 }
