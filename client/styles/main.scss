@@ -152,26 +152,18 @@ p {
   font-weight: 400;
 }
 
-.axis.minor line {
-  stroke: #777;
-  stroke-dasharray: 2,2;
-}
-
-.x.axis path {
-  stroke-width:1px;
+.axis path {
   stroke: #9ba497;
   fill: none;
-}
 
-.y.axis line {
+}
+.axis line {
   fill: none;
-  stroke: #cec6b9;
-  stroke-dasharray:2,2;
+  stroke: #9ba497;
   shape-rendering: crispEdges;
 }
-
-.y.axis path{
-  display:none;
+.tick line {
+  
 }
 
 .area {

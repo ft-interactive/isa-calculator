@@ -149,7 +149,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		var index=dataset.length-1
 		totalValue=dataset[index].cost;
 		revisedValue=dataset[index].cost2;
-		console.log(totalValue,revisedValue);
 		drawChart (xdomain, dataset);
 
 	}

@@ -60,7 +60,13 @@ export function drawChart (xDomain, dataset) {
 		svg.append("g")
 			.attr("class", "y axis")
 			.attr("transform", "translate("+margin.left+",0)")
-			.call(yAxis);
+			.call(yAxis)
+			.call(adjustTextLabels);
+
+function adjustTextLabels(selection) {
+    selection.selectAll('.axis text')
+        .attr("transform", "translate(0,-8)");
+}
 
 
 
