@@ -11,11 +11,11 @@ document.addEventListener('DOMContentLoaded', () => {
 		attachFastClick(document.body);
 
 	//Variables that hold the slider values for math calculations	
-	var savePerYear=0;
-	var timeToRetire=0;
-	var nomReturn=0;
-	var charges=0
-	var returns=Number(nomReturn-charges);
+	var savePerYear=2;
+	var timeToRetire=40;
+	var nomReturn=0.06;
+	var charges=0.005
+	var returns=0
 	var newCharges=0;
 	var newReturns=0;
 	// var inRetirement=0;
@@ -129,49 +129,33 @@ document.addEventListener('DOMContentLoaded', () => {
 		var newX=calcLabelPos(newCharges,'slnewCharges')
 		moveLabel("newChargeslab",newCharges,newX);
 		if (timeToRetire>0 && savePerYear>0 && nomReturn>0 && charges>0) {
-			calcChart();
 			returns=calcReturns(nomReturn,charges);
+			calcChart();
 			var htmlString=chartText()
 			var div=d3.select("#chartText");
 			div.html(htmlString);
 		}
-
-
-		// //Make the inRetirement slider opaque
-		// div=d3.select("#inRetirement");
-		// div.attr("class","slideholder");
-		// //Add label to the inRetirement slider
-		// if (firstrun) {
-		// 	addLabel("inRetirement","inRetirelab");
-		// 	firstrun=false;
-		// 	}
-		// //Refresh label position for slinreture
-		// var newX=calcLabelPos(inRetirement,'slinreture')
-		// moveLabel("inRetirelab",inRetirement,newX);
-		// //Add an oninput event to the inRetirement slider, not onchange as this is only triggered when mouse is released
-		// div=d3.select("#slinreture");
-		// div.on("input",function(d){
-		// 	var inRetirement=this.value;
-		// 	var newX=calcLabelPos(inRetirement,'slinreture')
-		// 	moveLabel("inRetirelab",inRetirement,newX);
-		// })
-
 	});
+	
+	returns=calcReturns(nomReturn,charges);
+	calcChart()
 
 	function calcReturns(returns, charge) {
-		return returns-charge
+		return (returns-charge)
 	}
 
 	//Data for chart, most of this is made up as I don't yet have the maths
 	function calcChart () {
+		console.log("calcChart")
 		var compRate=Number(returns)+1
-		console.log(compRate)
+		console.log("compRate ",compRate);
+		console.log("savePerYear ",savePerYear*1000)
 		var xdomain=[1,Number(timeToRetire)];
-		var dataset=Array(Number(timeToRetire)).fill(savePerYear).reduce((array, element, index) => {
-			array.push({year: index + 1, cost: !array.length ? element : array[array.length-1].cost * compRate + savePerYear});
+		var dataset=Array(Number(timeToRetire)).fill(savePerYear*1000).reduce((array, element, index) => {
+			array.push({year: index + 1, cost: !array.length ? element : array[array.length-1].cost * compRate + (savePerYear*1000)});
 			return array;
 			}, []);
-		console.log(dataset)
+		//console.log(dataset)
 		drawChart (xdomain, dataset);
 
 	}
@@ -227,7 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			<div class="chartOutput">${" years away, and the fund’s total costs are "}</div>
 			<div class="chartHighlights">${charges+"%"}</div>
 			<div class="chartOutput">${" of the money invested, and the fund manager achieves average return of "}</div>
-			<div class="chartHighlights">${returns+"%"}</div>
+			<div class="chartHighlights">${nomReturn+"%"}</div>
 			<div class="chartOutput">${" a year before fees, yours savings pot will grow to "}</div>
 			`;
 	}
