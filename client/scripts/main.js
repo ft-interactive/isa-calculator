@@ -33,9 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	{"divID":"charges","className":"slideholder","HTML":"Charges (per cent)","labName":"chargeslab","pos":charges,"sliderID":"slcharges","min":0,"max":10,"step":0.1},
 	{"divID":"newCharges","className":"slideholder","HTML":"Revised charges (per cent)","labName":"newChargeslab","pos":newCharges,"sliderID":"slnewCharges","min":0,"max":10,"step":0.1}]
 
-	//{"divID":"inRetirement","className":"dim","HTML":"Years in retirement","labName":"inRetirelab","pos":inRetirement,"sliderID":"slinreture","min":0,"max":50,"step":1}
-
-	//Add sliders
+	//Add sliders first four siders into #inputs
 	var htmlString="";
 	var testString=""
 	for (var i = 0; i < 4; i++) {
@@ -43,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		htmlString=htmlString+slidertemplate (slideValues[i]);
 		slideHolder.html(htmlString);
 	}
+	//Then add adition slider further down into #inputs2
 	htmlString="";
 	testString=""
 	for (var j = 4; j < 5; j++) {
@@ -70,15 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		savePerYear=Number(this.value);
 		var newX=calcLabelPos(savePerYear,"slsave")
 		moveLabel("savelab",savePerYear,newX);
-		if (timeToRetire>0 && savePerYear>0 && nomReturn>0 && charges>0) {
-			returns=calcReturns(nomReturn,charges);
-			calcChart();
-			var div=d3.select("#chartText1");
-			div.html(htmlString);
-			htmlString=chartText2()
-			var div=d3.select("#chartText2");
-			div.html(htmlString);
-		}
+		updateText()
 	})
 
 	//Add event listeners to slretire slider
@@ -87,15 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		timeToRetire=Number(this.value);
 		var newX=calcLabelPos(timeToRetire,"slretire")
 		moveLabel("retirelab",timeToRetire,newX);
-		if (timeToRetire>0 && savePerYear>0 && nomReturn>0 && charges>0) {
-			returns=calcReturns(nomReturn,charges);
-			calcChart();
-			var div=d3.select("#chartText1");
-			div.html(htmlString);
-			htmlString=chartText2()
-			var div=d3.select("#chartText2");
-			div.html(htmlString);
-		}
+		updateText()
 	});
 
 	//Add event listeners to slnomReturn slider
@@ -104,15 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		nomReturn=Number(this.value);
 		var newX=calcLabelPos(nomReturn,"slnomReturn")
 		moveLabel("nomReturnlab",nomReturn,newX);
-		if (timeToRetire>0 && savePerYear>0 && nomReturn>0 && charges>0) {
-			returns=calcReturns(nomReturn,charges);
-			calcChart();
-			var div=d3.select("#chartText1");
-			div.html(htmlString);
-			htmlString=chartText2()
-			var div=d3.select("#chartText2");
-			div.html(htmlString);
-		}
+		updateText()
 	});
 
 	//Add event listeners to slcharges slider
@@ -123,16 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		moveLabel("chargeslab",charges,newX);
 		//Adjust the maximum  value of newcharges slider based on vurrent charges value
 		updateRange()
-		//Update chart
-		if (timeToRetire>0 && savePerYear>0 && nomReturn>0 && charges>0) {
-			returns=calcReturns(nomReturn,charges);
-			calcChart();
-			var div=d3.select("#chartText1");
-			div.html(htmlString);
-			htmlString=chartText2()
-			var div=d3.select("#chartText2");
-			div.html(htmlString);
-		}
+		updateText()
 	});
 
 	//Add event listeners to slnewCharges slider
@@ -141,17 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		newCharges=Number(this.value);
 		var newX=calcLabelPos(newCharges,"slnewCharges")
 		moveLabel("newChargeslab",newCharges,newX);
-		if (timeToRetire>0 && savePerYear>0 && nomReturn>0 && charges>0) {
-			newReturns=calcReturns(nomReturn,newCharges);
-			calcChart();
-			var htmlString=chartText1()
-			var div=d3.select("#chartText1");
-			div.html(htmlString);
-			htmlString=chartText2()
-			var div=d3.select("#chartText2");
-			div.html(htmlString);
-		}
-
+		updateText()
 	});
 	
 	returns=calcReturns(nomReturn,charges);
@@ -164,6 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	var div=d3.select("#chartText2");
 	div.html(htmlString);
 	updateRange();
+	updateText();
 
 	function updateRange (){
 		var div=d3.select("#slnewCharges");
@@ -245,6 +202,19 @@ document.addEventListener('DOMContentLoaded', () => {
 				<div class='rangeright'>${annotations.max}</div>
 			</div>
 			`;
+	}
+
+	function updateText(){
+		if (timeToRetire>0 && savePerYear>0 && nomReturn>0 && charges>0) {
+			returns=calcReturns(nomReturn,charges);
+			newReturns=calcReturns(nomReturn,newCharges);
+			calcChart();
+			var div=d3.select("#chartText1");
+			div.html(htmlString);
+			htmlString=chartText2()
+			var div=d3.select("#chartText2");
+			div.html(htmlString);
+		}
 	}
 
 	function chartText1() {
