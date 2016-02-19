@@ -6,7 +6,7 @@ export function drawChart (xDomain, dataset, timeToRetire, totalValue, revisedVa
 		// dataset.sort(function(a, b) {
 		// 			return d3.descending(+a.year, +b.year);
 		// 		});
-		var margin = {top: 20, right: 10, bottom: 30, left: 100};
+		var margin = {top: 20, right: 10, bottom: 30, left: 88};
 		var width = (document.getElementById('areaChart').getBoundingClientRect().width)-margin.left - margin.right;
 	    var height = (document.getElementById('areaChart').getBoundingClientRect().height)-margin.top - margin.bottom;
 	    d3.select("#areaChart")
