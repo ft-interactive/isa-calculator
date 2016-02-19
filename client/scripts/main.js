@@ -10,16 +10,19 @@ document.addEventListener('DOMContentLoaded', () => {
 	// remove the 300ms tap delay on mobile browsers
 		attachFastClick(document.body);
 
-	//Variables that hold the slider values for math calculations	
+	//Variables that hold the slider.values
 	var savePerYear=2;
 	var timeToRetire=40;
 	var nomReturn=6.0;
-	var charges=2.0
+	var charges=2.1
 	var returns=2
 	var newCharges=0.5;
 	var newReturns=0;
 	var totalValue=0;
 	var revisedValue=0;
+	var difference=0
+	var feesDiff=0
+	var percentDif=0
 	var firstrun=true;
 
 	//Intial set up perameters for the sliders
@@ -70,8 +73,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		if (timeToRetire>0 && savePerYear>0 && nomReturn>0 && charges>0) {
 			returns=calcReturns(nomReturn,charges);
 			calcChart();
-			var htmlString=chartText()
-			var div=d3.select("#chartText");
+			var htmlString=chartText2()
+			var div=d3.select("#chartText2");
 			div.html(htmlString);
 		}
 	})
@@ -88,6 +91,9 @@ document.addEventListener('DOMContentLoaded', () => {
 			var htmlString=chartText()
 			var div=d3.select("#chartText");
 			div.html(htmlString);
+			htmlString=chartText2()
+			var div=d3.select("#chartText2");
+			div.html(htmlString);
 		}
 	});
 
@@ -100,8 +106,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		if (timeToRetire>0 && savePerYear>0 && nomReturn>0 && charges>0) {
 			returns=calcReturns(nomReturn,charges);
 			calcChart();
-			var htmlString=chartText()
-			var div=d3.select("#chartText");
+			var htmlString=chartText2()
+			var div=d3.select("#chartText2");
 			div.html(htmlString);
 		}
 	});
@@ -125,8 +131,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		if (timeToRetire>0 && savePerYear>0 && nomReturn>0 && charges>0) {
 			returns=calcReturns(nomReturn,charges);
 			calcChart();
-			var htmlString=chartText()
-			var div=d3.select("#chartText");
+			var htmlString=chartText2()
+			var div=d3.select("#chartText2");
 			div.html(htmlString);
 		}
 	});
@@ -140,8 +146,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		if (timeToRetire>0 && savePerYear>0 && nomReturn>0 && charges>0) {
 			newReturns=calcReturns(nomReturn,newCharges);
 			calcChart();
-			var htmlString=chartText()
-			var div=d3.select("#chartText");
+			var htmlString=chartText2()
+			var div=d3.select("#chartText2");
 			div.html(htmlString);
 		}
 
@@ -150,9 +156,12 @@ document.addEventListener('DOMContentLoaded', () => {
 	returns=calcReturns(nomReturn,charges);
 	newReturns=calcReturns(nomReturn,newCharges);
 	calcChart()
-	var htmlString=chartText()
-	var div=d3.select("#chartText");
-	div.html(htmlString);
+	var htmlString=chartText1()
+			var div=d3.select("#chartText1");
+			div.html(htmlString);
+			htmlString=chartText2()
+			var div=d3.select("#chartText2");
+			div.html(htmlString);
 
 	function calcReturns(returns, charge) {
 		return (returns)
@@ -176,6 +185,9 @@ document.addEventListener('DOMContentLoaded', () => {
 		totalValue=dataset[index].cost;
 		revisedValue=dataset[index].cost2;
 		console.log(totalValue, revisedValue)
+		difference=revisedValue-totalValue;
+		percentDif=100-((totalValue/revisedValue)*100)
+		feesDiff=charges-newCharges;
 		drawChart (xdomain, dataset);
 
 	}
@@ -222,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			`;
 	}
 
-	function chartText() {
+	function chartText1() {
 		return `
 			<div class="dynamicText">${"If you invest "}</div>
 			<div class="dynamichighlights">${"£"+d3.format(",")(savePerYear*1000)}</div>
@@ -234,6 +246,22 @@ document.addEventListener('DOMContentLoaded', () => {
 			<div class="dynamichighlights">${nomReturn+"%"}</div>
 			<div class="dynamicText">${" a year before fees, yours savings pot will grow to "}</div>
 			<div class="dynamichighlights">${"£"+d3.format(",.2f")(totalValue)}</div>
+			`;
+	}
+
+	function chartText2() {
+		return `
+			<div class="dynamicText">${"But, if the management fees were lower, at "}</div>
+			<div class="dynamichighlights">${newCharges}</div>
+			<div class="dynamicText">${"per cent, you would have made "}</div>
+			<div class="dynamichighlights">${"£"+d3.format(",.2f")(revisedValue)}</div>
+			<div class="dynamicText">${"— a  "}</div>
+			<div class="dynamichighlights">${"£"+d3.format(",.2f")(difference)}</div>
+			<div class="dynamicText">${"difference shown on the chart. As a result of the "}</div>
+			<div class="dynamichighlights">${feesDiff}</div>
+			<div class="dynamicText">${"percentage-point higher annual charge,  "}</div>
+			<div class="dynamichighlights">${d3.format(".1f")(percentDif)+"% "}</div>
+			<div class="dynamicText">${"of your savings has disappeared in extra costs."}</div>
 			`;
 	}
 
