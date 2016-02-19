@@ -1,8 +1,8 @@
 import d3 from 'd3';
 
-export function drawChart (xDomain, dataset) {
+export function drawChart (xDomain, dataset, timeToRetire, totalValue, revisedValue) {
 		//Obviously data will change
-		console.log (dataset)
+		//console.log (dataset)
 		// dataset.sort(function(a, b) {
 		// 			return d3.descending(+a.year, +b.year);
 		// 		});
@@ -51,13 +51,25 @@ export function drawChart (xDomain, dataset) {
 			.datum(dataset)
 			.attr("class", "area")
 			.attr("d", area);
+		
+		svg.append("circle")
+			.attr("cx", function () { return x(timeToRetire);})
+			.attr("cy", function () { return y(totalValue);})
+			.attr("r",8)
+			.attr("class", "dots")
+
+		svg.append("circle")
+			.attr("cx", function () { return x(timeToRetire);})
+			.attr("cy", function () { return y(revisedValue);})
+			.attr("r",8)
+			.attr("class", "dots")
 
 		svg.append("g")
 			.attr("class", "x axis")
 			.attr("transform", "translate(0," + height + ")")
 			.call(xAxis)
 			svg.append("text")
-			    .attr("class", "presentation")
+			    .attr("class", "pressentation")
 			    .attr("x", width/2)
 			    .attr("y", height+margin.bottom+margin.top-4)
 			    .text("Years to retirement");

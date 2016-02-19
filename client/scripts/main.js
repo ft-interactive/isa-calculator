@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		difference=revisedValue-totalValue;
 		percentDif=100-((totalValue/revisedValue)*100)
 		feesDiff=charges-newCharges;
-		drawChart (xdomain, dataset);
+		drawChart (xdomain, dataset, timeToRetire,totalValue, revisedValue);
 	}
 
 	//Adds a dive to hold the slider label
@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	//Moves the label over the top of new thumb position
 	function moveLabel (divId, labelText, pos) {
 		if ((window.innerWidth)>640) {
-			var topPos=24
+			var topPos=23
 		}
 		else {var topPos=21};
 		var label=d3.select('#'+String(divId))
