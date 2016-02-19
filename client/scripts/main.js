@@ -112,6 +112,16 @@ document.addEventListener('DOMContentLoaded', () => {
 		charges=Number(this.value);
 		var newX=calcLabelPos(charges,"slcharges")
 		moveLabel("chargeslab",charges,newX);
+		//Adjust the maximum  value of newcharges slider based on vurrent charges value
+		var div=d3.select("#slnewCharges");
+		div.node().max=charges;
+		div=d3.select("#newCharges");
+		div.selectAll('.rangeright')
+		.html(charges)
+		//adjust the slider label of the newCharges slider
+		newX=calcLabelPos(newCharges,"slnewCharges");
+		moveLabel("newChargeslab",newCharges,newX);
+		//Update chart
 		if (timeToRetire>0 && savePerYear>0 && nomReturn>0 && charges>0) {
 			returns=calcReturns(nomReturn,charges);
 			calcChart();
@@ -119,11 +129,9 @@ document.addEventListener('DOMContentLoaded', () => {
 			var div=d3.select("#chartText");
 			div.html(htmlString);
 		}
-		var div=d3.select("#slnewCharges")
-
 	});
 
-	//Add event listeners to slcharges slider
+	//Add event listeners to slnewCharges slider
 	var newchargesevent=d3.select("#slnewCharges");
 	newchargesevent.on("input", function(d){
 		newCharges=Number(this.value);
@@ -136,6 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			var div=d3.select("#chartText");
 			div.html(htmlString);
 		}
+
 	});
 	
 	returns=calcReturns(nomReturn,charges);
