@@ -79,9 +79,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	var retireevent=d3.select("#slretire");
 	retireevent.on("input", function(d){
 		timeToRetire=Number(this.value);
-		if (Number(this.value)<2){
-			this.value=2;
-			timeToRetire=2
+		if (Number(this.value)<1){
+			this.value=1;
+			timeToRetire=1
 		}
 		var newX=calcLabelPos(timeToRetire,"slretire")
 		moveLabel("retirelab",timeToRetire,newX);
@@ -157,9 +157,9 @@ document.addEventListener('DOMContentLoaded', () => {
 		// console.log("compounding rate ",compRate)
 		// console.log("change rate ",changeRate);
 		var newCompRate=1+(Number(newReturns)/100);
-		var xdomain=[1,Number(timeToRetire)];
-		var dataset=Array(Number(timeToRetire)).fill(savePerYear*1000).reduce((array, element, index) => {
-			array.push({year: index + 1, cost: !array.length ? element : (array[array.length-1].cost * compRate + (savePerYear*1000))*changeRate,cost2: !array.length ? element : (array[array.length-1].cost2 * newCompRate + (savePerYear*1000))*newchangeRate});
+		var xdomain=[0,Number(timeToRetire)];
+		var dataset=Array(Number(timeToRetire+1)).fill(savePerYear*1000).reduce((array, element, index) => {
+			array.push({year: index, cost: !array.length ? element : (array[array.length-1].cost * compRate + (savePerYear*1000))*changeRate,cost2: !array.length ? element : (array[array.length-1].cost2 * newCompRate + (savePerYear*1000))*newchangeRate});
 			return array;
 			}, []);
 		var index=dataset.length-1
