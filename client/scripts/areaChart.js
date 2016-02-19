@@ -6,7 +6,7 @@ export function drawChart (xDomain, dataset) {
 		// dataset.sort(function(a, b) {
 		// 			return d3.descending(+a.year, +b.year);
 		// 		});
-		var margin = {top: 20, right: 10, bottom: 20, left: 100};
+		var margin = {top: 20, right: 10, bottom: 30, left: 100};
 		var width = (document.getElementById('areaChart').getBoundingClientRect().width)-margin.left - margin.right;
 	    var height = (document.getElementById('areaChart').getBoundingClientRect().height)-margin.top - margin.bottom;
 	    d3.select("#areaChart")
@@ -55,7 +55,12 @@ export function drawChart (xDomain, dataset) {
 		svg.append("g")
 			.attr("class", "x axis")
 			.attr("transform", "translate(0," + height + ")")
-			.call(xAxis);
+			.call(xAxis)
+			svg.append("text")
+			    .attr("class", "x label")
+			    .attr("x", width/2)
+			    .attr("y", height+margin.bottom+margin.top-4)
+			    .text("Years to retirement");
 
 		svg.append("g")
 			.attr("class", "y axis")
