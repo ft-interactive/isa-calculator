@@ -2,7 +2,7 @@ import d3 from 'd3';
 
 export function drawChart (xDomain, dataset) {
 		//Obviously data will change
-		//console.log (dataset)
+		console.log (dataset)
 		// dataset.sort(function(a, b) {
 		// 			return d3.descending(+a.year, +b.year);
 		// 		});
@@ -57,7 +57,7 @@ export function drawChart (xDomain, dataset) {
 			.attr("transform", "translate(0," + height + ")")
 			.call(xAxis)
 			svg.append("text")
-			    .attr("class", "x label")
+			    .attr("class", "presentation")
 			    .attr("x", width/2)
 			    .attr("y", height+margin.bottom+margin.top-4)
 			    .text("Years to retirement");
