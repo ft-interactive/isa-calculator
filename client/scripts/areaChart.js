@@ -115,7 +115,7 @@ export function drawChart (xDomain, dataset, timeToRetire, totalValue, revisedVa
 					`;
 					});
 		var div=d3.select('#difLabel')
-		div.style('left', x(timeToRetire)-175+'px')
+		div.style('left', x(timeToRetire)-180+'px')
 			.style('top', y(revisedValue)-margin.bottom-height+'px');
 
 	function adjustTextLabels(selection) {
