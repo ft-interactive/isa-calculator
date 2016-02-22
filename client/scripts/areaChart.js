@@ -110,13 +110,13 @@ export function drawChart (xDomain, dataset, timeToRetire, totalValue, revisedVa
 				.attr("class", "diffLabe")
 				.html(function () {
 					return `
-					<div class="diffLabe">${"Industry cut"}</div>
-					<div class="diffLabe">${"£"+d3.format(",f")(revisedValue-totalValue)}</div>
+					<div class="diffLabel">${"Industry cut"}</div>
+					<div class="diffLabeplus">${"£"+d3.format(",f")(revisedValue-totalValue)}</div>
 					`;
 					});
 		var div=d3.select('#difLabel')
-		div.style('left', 300+'px')
-			.style('top', -350+'px');
+		div.style('left', x(timeToRetire)-175+'px')
+			.style('top', y(revisedValue)-margin.bottom-height+'px');
 
 	function adjustTextLabels(selection) {
 	    selection.selectAll('.axis text')

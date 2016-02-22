@@ -192,13 +192,17 @@ p {
 .diffLabe{
   position:relative;
   margin: 0 0 0 0 ;
-  width: 100px;
+  width: 120px;
   color:  #43423e;
   background-color: #fff1e0;
   font-family: MetricWeb;
   font-size: 18px;
   font-weight: 400;
 }
+.diffLabeplus{
+  font-weight: 600;
+  color: #76acb8;
+  }
 
 .area {
   fill: #ecafaf;
@@ -311,6 +315,14 @@ p {
   .dynamichighlights {
     font-size: 22px;
   }
+  
+  .diffLabe{
+    font-size: 22px;
+  }
+  
+  .diffLabeplus{
+    font-size: 22px;
+    }
 
 }
 
