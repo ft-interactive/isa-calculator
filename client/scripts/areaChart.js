@@ -51,16 +51,40 @@ export function drawChart (xDomain, dataset, timeToRetire, totalValue, revisedVa
 			.datum(dataset)
 			.attr("class", "area")
 			.attr("d", area);
+
+		svg.append("line")
+			.attr("x1", function () { return x(timeToRetire)-100})
+			.attr("y1", function () { return y(totalValue)})
+			.attr("x2", function () { return x(timeToRetire)})
+			.attr("y2", function () { return y(totalValue)})
+			.attr("stroke-width", 1)
+			.attr("stroke", "black");
+
+		svg.append("line")
+			.attr("x1", function () { return x(timeToRetire)-100})
+			.attr("y1", function () { return y(revisedValue)})
+			.attr("x2", function () { return x(timeToRetire)})
+			.attr("y2", function () { return y(revisedValue)})
+			.attr("stroke-width", 1)
+			.attr("stroke", "black");
+
+		svg.append("line")
+			.attr("x1", function () { return x(timeToRetire)-100})
+			.attr("y1", function () { return y(totalValue)})
+			.attr("x2", function () { return x(timeToRetire)-100})
+			.attr("y2", function () { return y(revisedValue)})
+			.attr("stroke-width", 1)
+			.attr("stroke", "black");
 		
 		svg.append("circle")
-			.attr("cx", function () { return x(timeToRetire);})
-			.attr("cy", function () { return y(totalValue);})
+			.attr("cx", function () { return x(timeToRetire)})
+			.attr("cy", function () { return y(totalValue)})
 			.attr("r",8)
 			.attr("class", "dots")
 
 		svg.append("circle")
-			.attr("cx", function () { return x(timeToRetire);})
-			.attr("cy", function () { return y(revisedValue);})
+			.attr("cx", function () { return x(timeToRetire)})
+			.attr("cy", function () { return y(revisedValue)})
 			.attr("r",8)
 			.attr("class", "dots")
 
@@ -68,11 +92,12 @@ export function drawChart (xDomain, dataset, timeToRetire, totalValue, revisedVa
 			.attr("class", "x axis")
 			.attr("transform", "translate(0," + height + ")")
 			.call(xAxis)
-			svg.append("text")
-			    .attr("class", "pressentation")
-			    .attr("x", width/2)
-			    .attr("y", height+margin.bottom+margin.top-4)
-			    .text("Years to retirement");
+		
+		svg.append("text")
+		    .attr("class", "pressentation")
+		    .attr("x", width/2)
+		    .attr("y", height+margin.bottom+margin.top-4)
+		    .text("Years to retirement");
 
 		svg.append("g")
 			.attr("class", "y axis")
@@ -80,13 +105,22 @@ export function drawChart (xDomain, dataset, timeToRetire, totalValue, revisedVa
 			.call(yAxis)
 			.call(adjustTextLabels);
 
-function adjustTextLabels(selection) {
-    selection.selectAll('.axis text')
-        .attr("transform", "translate(0,-8)");
-}
+		var label=d3.select('#areaChart').append("div")
+				.attr("id","difLabel")
+				.attr("class", "diffLabe")
+				.html(function () {
+					return `
+					<div class="diffLabe">${"Industry cut"}</div>
+					<div class="diffLabe">${"£"+d3.format(",f")(revisedValue-totalValue)}</div>
+					`;
+					});
+		var div=d3.select('#difLabel')
+		div.style('left', 300+'px')
+			.style('top', -350+'px');
 
-
-
-
-
+	function adjustTextLabels(selection) {
+	    selection.selectAll('.axis text')
+	        .attr("transform", "translate(0,-8)");
 	}
+
+}
