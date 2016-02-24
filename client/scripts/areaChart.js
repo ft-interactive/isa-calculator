@@ -115,8 +115,8 @@ export function drawChart (xDomain, dataset, timeToRetire, totalValue, revisedVa
 					`;
 					});
 		var div=d3.select('#difLabel')
-		div.style('left', x(timeToRetire)-180+'px')
-			.style('top', y(revisedValue)-margin.bottom-height+'px');
+		div.style('left', x(timeToRetire)-195+'px')
+			.style('top', y(totalValue+((revisedValue-totalValue)/2))-height-margin.top-margin.bottom-25+'px');
 
 	function adjustTextLabels(selection) {
 	    selection.selectAll('.axis text')
