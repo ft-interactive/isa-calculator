@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	{"divID":"toRetire","className":"slideholder","HTML":"Time to retirement (years)","labName":"retirelab","pos":timeToRetire,"sliderID":"slretire","min":0,"max":50,"step":1},
 	{"divID":"nomReturn","className":"slideholder","HTML":"Nominal return (per cent)","labName":"nomReturnlab","pos":nomReturn,"sliderID":"slnomReturn","min":0,"max":10,"step":0.1},
 	{"divID":"charges","className":"slideholder","HTML":"Charges (per cent)","labName":"chargeslab","pos":charges,"sliderID":"slcharges","min":0,"max":10,"step":0.1},
-	{"divID":"newCharges","className":"slideholder","HTML":"Revised charges (per cent)","labName":"newChargeslab","pos":newCharges,"sliderID":"slnewCharges","min":0,"max":10,"step":0.1}]
+	{"divID":"newCharges","className":"slideholder","HTML":"If the charges were lower (per cent)","labName":"newChargeslab","pos":newCharges,"sliderID":"slnewCharges","min":0,"max":10,"step":0.1}]
 
 	//Add sliders first four siders into #inputs
 	var htmlString="";
@@ -238,7 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			<div class="dynamichighlights">${charges+"%"}</div>
 			<div class="dynamicText">${" of the money invested, and the fund manager achieves average return of "}</div>
 			<div class="dynamichighlights">${nomReturn+"%"}</div>
-			<div class="dynamicText">${" a year before fees, yours savings pot will grow to "}</div>
+			<div class="dynamicText">${" a year before fees, your savings pot will grow to "}</div>
 			<div class="dynamichighlights">${"£"+d3.format(",f")(totalValue)}</div>
 			`;
 	}
