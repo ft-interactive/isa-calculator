@@ -262,9 +262,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	function resize(){
 		console.log("resize")
 		calcChart();
-		for (var i = 0; i < 6; i++) {
-
-		}
+		var newX=calcLabelPos(savePerYear,"slsave")
+		moveLabel("savelab",savePerYear,newX);
+		newX=calcLabelPos(timeToRetire,"slretire")
+		moveLabel("retirelab",timeToRetire,newX);
+		newX=calcLabelPos(nomReturn,"slnomReturn")
+		moveLabel("nomReturnlab",nomReturn,newX);
+		newX=calcLabelPos(charges,"slcharges")
+		moveLabel("chargeslab",charges,newX);
+		newX=calcLabelPos(newCharges,"slnewCharges")
+		moveLabel("newChargeslab",newCharges,newX);
 	}
 
 });
