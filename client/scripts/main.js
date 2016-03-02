@@ -153,15 +153,17 @@ document.addEventListener('DOMContentLoaded', () => {
 		var changeRate=1-(charges/100);
 		var newchangeRate=1-(newCharges/100);
 		var compRate=1+(Number(returns)/100);
+		var newCompRate=1+(Number(newReturns)/100);
 		// console.log("returns ",returns)
 		// console.log("compounding rate ",compRate)
 		// console.log("change rate ",changeRate);
-		var newCompRate=1+(Number(newReturns)/100);
+		// console.log("new change rate ",newchangeRate);
 		var xdomain=[0,Number(timeToRetire)];
 		var dataset=Array(Number(timeToRetire+1)).fill(savePerYear*1000).reduce((array, element, index) => {
 			array.push({year: index, cost: !array.length ? element : (array[array.length-1].cost * compRate + (savePerYear*1000))*changeRate,cost2: !array.length ? element : (array[array.length-1].cost2 * newCompRate + (savePerYear*1000))*newchangeRate});
 			return array;
 			}, []);
+		console.log(dataset)
 		var index=dataset.length-1
 		totalValue=dataset[index].cost;
 		revisedValue=dataset[index].cost2;

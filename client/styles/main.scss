@@ -49,6 +49,9 @@ h1 {
     margin-top: 10px;
 }
 p {
+  font-family: MetricWeb;
+  font-weight: 400;
+  font-size: 18px;
   margin: 8px 0 0 0;
 }
 
@@ -214,12 +217,14 @@ p {
   font-family: MetricWeb;
   font-weight: 400;
   font-size: 18px;
-  color: #6b6e68;
   display: inline;
   text-align: left;
 }
 
 .dynamichighlights {
+  font-family: MetricWeb;
+  font-weight: 400;
+  font-size: 18px;
   display: inline;
   font-weight: 500;
   color: #76acb8;
@@ -235,6 +240,7 @@ p {
       margin-top: 10px;
   }
   p {
+    font-size: 20px;
     margin: 15px 0 0 0;
   }
 
