@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block article_body %}
+{% markdown %}
+
+Over the long term, managers’ fees  can make a huge difference to wealth. But it is very hard for investors to find out how much. Most of the promotional material about investment funds concerns individual managers’ performance. Online fund supermarkets research stock-pickers’ market-beating credentials. Fund houses trumpet their stars’ performance.
+
+This hype diverts attention from funds’ costs. In Britain, fund managers state some expenses on investment brochures, but do not disclose total costs. This is becoming a major concern for regulators. It should also worry savers.
+
+Here is an example, based on calculations provided by David Pitt-Watson of London Business School:
+
+{% endmarkdown %}
+
+{% include "calculator.html" %}
+
+{% markdown %}
+
+Mr Pitt-Watson’s own research says real average costs for retail investment funds could be around 2.21 per cent. Over 40 years, this would reduce the value of funds saved into a retirement pot by more than 40 per cent, FT research shows.
+
+It is impossible to confidently choose a fund based on costs, because these are not fully disclosed at the point of sale. Estimates vary, but experts say costs are probably higher than what fund managers may steer us to believe.
+
+In Britain, fund brochures tend to express a “total expense ratio”, usually between 1.25 and 1.75 per cent. The TER is a “poor guide to the full costs,” according to a paper issued last July by the UK’s Financial Services Consumer Panel, one of four statutory bodies that advise the Financial Conduct Authority.
+
+{% endmarkdown %}
+{% endblock %}
