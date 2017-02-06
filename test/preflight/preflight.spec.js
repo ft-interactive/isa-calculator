@@ -109,8 +109,8 @@ module.exports = {
           client.expect.element('meta[name="twitter:creator"]')
             .to.have.attribute('content').not.equal('');
 
-          client.expect.element('meta[property="article:author"]')
-            .to.have.attribute('content').not.equal('');
+   //       client.expect.element('meta[property="article:author"]')
+  //       .to.have.attribute('content').not.equal('');
         }
         done();
       });
@@ -197,20 +197,20 @@ module.exports = {
       .text.to.not.equal('');
   },
 
-  'If optional related article tag is present, check it is defined': client => {
-    client.perform(done => {
-      client.element('css selector', '.o-typography-lead > .o-typography-link', result => {
-        if (result.value && result.value.ELEMENT) {
-          client.expect.element('.o-typography-lead > .o-typography-link')
-            .to.have.attribute('href').not.equal('');
-          client.expect.element('.o-typography-lead > .o-typography-link')
-            .text.to.not.equal('');
-        }
+  // 'If optional related article tag is present, check it is defined': client => {
+  //   client.perform(done => {
+  //     client.element('css selector', '.o-typography-lead > .o-typography-link', result => {
+  //       if (result.value && result.value.ELEMENT) {
+  //         client.expect.element('.o-typography-lead > .o-typography-link')
+  //           .to.have.attribute('href').not.equal('');
+  //         client.expect.element('.o-typography-lead > .o-typography-link')
+  //           .text.to.not.equal('');
+  //       }
 
-        done();
-      });
-    });
-  },
+  //       done();
+  //     });
+  //   });
+  // },
 
   'If optional timestamp tag is present, check it is defined': client => {
     client.perform(done => {
