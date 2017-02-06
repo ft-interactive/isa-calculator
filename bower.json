@@ -4,6 +4,7 @@
   "dependencies": {
     "o-colors": "^3.3.1",
     "o-grid": "^4.2.1",
-    "o-normalise": "^1.2.0"
+    "o-normalise": "^1.2.0",
+    "o-hoverable": "^3.1.0"
   }
 }
