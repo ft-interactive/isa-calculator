@@ -1,3 +1,21 @@
+@import 'o-colors/main';
+@import 'components/core/main';
+
+/*
+      TODO: delete this comment
+
+      Write your code here - keep it neat!
+      Split logical parts of you project into components e.g.
+
+      /client
+        - /components
+            - /component-name
+                - styles.scss
+                - index.js
+                - template.html
+*/
+
+
 $o-grid-is-silent: false;
 
 @import 'n-normalize/main';
@@ -8,6 +26,7 @@ $font-sans: MetricWeb, sans-serif;
 $font-serif: Georgia, serif;
 $font-display: FinancierDisplayWeb, Georgia, serif;
 
+/*
 body {
   @include oColorsFor(page, background);
 
@@ -31,6 +50,8 @@ body {
       height: 14px;
     }
 
+
+
 .intro {
   font: 16px/1.20 FinancierText;
   font-smooth: auto;
@@ -44,10 +65,12 @@ body {
 h1 {
     font: 400 28px/1.2 FinancierDisplay,serif;
     margin: .1em 0;
-    text-align: center;
     font-size: 30px;
     margin-top: 10px;
 }
+*/
+
+/*
 p {
   font-family: MetricWeb;
   font-weight: 400;
@@ -55,11 +78,13 @@ p {
   margin: 8px 0 0 0;
 }
 
+
 .byline {
   font: 14px/1.20 FinancierText;
   text-align: center;
   color: #333;
 }
+*/
 
 .pressentation {
   font-smooth: auto;
@@ -239,10 +264,10 @@ p {
       font-size: 40px;
       margin-top: 10px;
   }
-  p {
+  /* p {
     font-size: 20px;
     margin: 15px 0 0 0;
-  }
+  }*/
 
   .site-header {
   padding: 18px 0 14px;
