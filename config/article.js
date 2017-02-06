@@ -63,19 +63,19 @@ export default () => ({ // eslint-disable-line
         optional social meta data?
   */
   // General social
-  // socialImage: '',
-  // socialHeadline: '',
-  // socialSummary:  '',
+  socialImage: 'https://www.ft.com/__origami/service/image/v2/images/raw/ftcms%3Ae3159bc6-e21c-11e5-9217-6ae3733a2cd1?source=ig',
+ socialHeadline: 'Calculate the hidden cost of fund fees',
+ socialSummary:  'Over the long term, managers’ fees can make a huge difference to savers’ wealth. Our calculator shows how.',
 
   // TWITTER
-  // twitterImage: '',
-  // twitterCreator: '@individual's_account',
-  // tweetText:  '',
-  // twitterHeadline:  '',
+   twitterImage: 'https://www.ft.com/__origami/service/image/v2/images/raw/ftcms%3Ae3159bc6-e21c-11e5-9217-6ae3733a2cd1?source=ig',
+   twitterCreator: '@ftmoney',
+   tweetText:  'Over the long term, managers’ fees can make a huge difference to savers’ wealth. Our calculator shows how.',
+   twitterHeadline:  'Calculate the hidden cost of fund fees',
 
   // FACEBOOK
-  // facebookImage: '',
-  // facebookHeadline: '',
+   facebookImage: 'https://www.ft.com/__origami/service/image/v2/images/raw/ftcms%3Ae3159bc6-e21c-11e5-9217-6ae3733a2cd1?source=ig',
+   facebookHeadline: 'Over the long term, managers’ fees can make a huge difference to savers’ wealth. Our calculator shows how.',
 
   tracking: {
 
