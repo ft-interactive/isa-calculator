@@ -212,17 +212,17 @@ module.exports = {
   //   });
   // },
 
-  'If optional timestamp tag is present, check it is defined': client => {
-    client.perform(done => {
-      client.element('css selector', '.article__timestamp', result => {
-        if (result.value && result.value.ELEMENT) {
-          client.expect.element('.article__timestamp')
-            .text.to.not.equal('');
-        }
-        done();
-      });
-    });
-  },
+  // 'If optional timestamp tag is present, check it is defined': client => {
+  //   client.perform(done => {
+  //     client.element('css selector', '.article__timestamp', result => {
+  //       if (result.value && result.value.ELEMENT) {
+  //         client.expect.element('.article__timestamp')
+  //           .text.to.not.equal('');
+  //       }
+  //       done();
+  //     });
+  //   });
+  // },
 
   'If optional byline tag is present, check it is populated': client => {
     client.perform(done => {
