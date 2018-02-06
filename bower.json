@@ -3,6 +3,8 @@
   "private": true,
   "dependencies": {
     "o-colors": "^4.1.1",
-    "o-grid": "^4.2.1"
+    "o-grid": "^4.2.1",
+    "o-normalise": "^1.5.3",
+    "o-hoverable": "^3.1.4"
   }
 }
