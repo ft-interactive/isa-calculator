@@ -93,6 +93,6 @@
     "start": "webpack-dev-server --watch"
   },
   "dependencies": {
-    "d3": "^4.13.0"
+    "d3": "3.5.17"
   }
 }

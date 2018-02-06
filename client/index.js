@@ -2,7 +2,7 @@ import oHoverable from 'o-hoverable/main';
 // import attachFastClick from 'fastclick';
 import * as d3 from 'd3';
 import './styles.scss';
-// import {drawChart} from './scripts/areaChart';
+import {drawChart} from './areaChart';
 
 document.addEventListener('DOMContentLoaded', () => {
   // make hover effects work on touch devices
