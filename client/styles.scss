@@ -102,7 +102,7 @@ $font-display: FinancierDisplayWeb, Georgia, serif;
 
 .slideLabel {
   font-family: MetricWeb;
-  background-color: #bb6d82;
+  background-color: #990F3D;
   color: #fff;
   width: 30px;
   height: 22px;
@@ -116,7 +116,7 @@ $font-display: FinancierDisplayWeb, Georgia, serif;
 //Charts styling
 .dots {
   fill:#ffffff;
-  stroke: #bb6d82;
+  stroke: #1E558C;
   stroke-width: 2px;
 }
 
@@ -153,11 +153,11 @@ $font-display: FinancierDisplayWeb, Georgia, serif;
   }
 
 .area {
-  fill: #ecafaf;
+  fill: #1E558C;
 }
-//fill: #bb6d82;
+
 .area2 {
-  fill: #bb6d82;
+  fill: #94d2e6;
 }
 
 .dynamicHolder{
@@ -347,7 +347,7 @@ input[type=range].slider::-webkit-slider-runnable-track {
 }
 input[type=range].slider::-webkit-slider-thumb {
   box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
-  border: 4px solid #a9546e;
+  border: 4px solid #990F3D;
   height: 32px;
   width: 32px;
   border-radius: 16px;
