@@ -1,11 +1,11 @@
 export default (environment = 'development') => ({ // eslint-disable-line
 
   // link file UUID
-  id: '',
+  id: '2225074e-e096-11e5-96b7-9f778349aba2',
 
   // canonical URL of the published page
   //  get filled in by the ./configure script
-  url: '',
+  url: 'https://ig.ft.com/sites/isa-calculator/',
 
   // To set an exact publish date do this:
   //       new Date('2016-05-17T17:11:22Z')
