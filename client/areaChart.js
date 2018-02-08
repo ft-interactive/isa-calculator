@@ -94,7 +94,7 @@ export function drawChart (xDomain, dataset, timeToRetire, totalValue, revisedVa
 			.call(xAxis)
 
 		svg.append("text")
-		    .attr("class", "pressentation")
+		    .attr("class", "presentation")
 		    .attr("x", width/2)
 		    .attr("y", height+margin.bottom+margin.top-4)
 		    .text("Years to retirement");
