@@ -42,7 +42,7 @@ export function drawChart (xDomain, dataset, timeToRetire, totalValue, revisedVa
 		var svg = d3.select("#areaChart").append("svg")
 		    .attr("width", width + margin.left + margin.right)
 		    .attr("height", height + margin.top + margin.bottom)
-		  
+
 		svg.append("path")
 			.datum(dataset)
 			.attr("class", "area2")
@@ -75,7 +75,7 @@ export function drawChart (xDomain, dataset, timeToRetire, totalValue, revisedVa
 			.attr("y2", function () { return y(revisedValue)})
 			.attr("stroke-width", 1)
 			.attr("stroke", "black");
-		
+
 		svg.append("circle")
 			.attr("cx", function () { return x(timeToRetire)})
 			.attr("cy", function () { return y(totalValue)})
@@ -92,9 +92,9 @@ export function drawChart (xDomain, dataset, timeToRetire, totalValue, revisedVa
 			.attr("class", "x axis")
 			.attr("transform", "translate(0," + height + ")")
 			.call(xAxis)
-		
+
 		svg.append("text")
-		    .attr("class", "pressentation")
+		    .attr("class", "presentation")
 		    .attr("x", width/2)
 		    .attr("y", height+margin.bottom+margin.top-4)
 		    .text("Years to retirement");

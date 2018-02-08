@@ -1,15 +1,15 @@
-import oHoverable from 'o-hoverable';
-import attachFastClick from 'fastclick';
+import oHoverable from 'o-hoverable/main';
+// import attachFastClick from 'fastclick';
 import * as d3 from 'd3';
-import {drawChart} from './scripts/areaChart';
+import './styles.scss';
+import {drawChart} from './areaChart';
 
 document.addEventListener('DOMContentLoaded', () => {
   // make hover effects work on touch devices
     oHoverable.init();
 
   // remove the 300ms tap delay on mobile browsers
-    attachFastClick(document.body);
-
+    // attachFastClick(document.body);
 
   window.addEventListener('resize', resize);
 
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
     moveLabel("newChargeslab",newCharges,newX);
     updateText()
   });
-  
+
   returns=calcReturns(nomReturn,charges);
   newReturns=calcReturns(nomReturn,newCharges);
   calcChart()
@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
       array.push({year: index, cost: !array.length ? element : (array[array.length-1].cost * compRate + (savePerYear*1000))*changeRate,cost2: !array.length ? element : (array[array.length-1].cost2 * newCompRate + (savePerYear*1000))*newchangeRate});
       return array;
       }, []);
-    console.log(dataset)
+    // console.log(dataset)
     var index=dataset.length-1
     totalValue=dataset[index].cost;
     revisedValue=dataset[index].cost2;
@@ -275,5 +275,4 @@ document.addEventListener('DOMContentLoaded', () => {
     newX=calcLabelPos(newCharges,"slnewCharges")
     moveLabel("newChargeslab",newCharges,newX);
   }
-
 });
