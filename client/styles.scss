@@ -161,12 +161,12 @@ $font-display: FinancierDisplayWeb, Georgia, serif;
 }
 
 .dynamicHolder{
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .dynamicText{
   font-family: MetricWeb;
-  // font-weight: 400;
+  font-weight: 400;
   font-size: 18px;
   display: inline;
   // text-align: left;
@@ -221,11 +221,11 @@ $font-display: FinancierDisplayWeb, Georgia, serif;
   }
 
   .inputs{
-    margin-top: 30px;
+    margin: 30px 0 30px 0;
   }
 
   .outputs{
-    margin-top: 30px;
+    margin: 30px 0 30px 0;
   }
 
   .inputs2{
